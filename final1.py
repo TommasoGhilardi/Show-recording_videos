@@ -183,7 +183,7 @@ def center(win):
 
 def exit_all():
     exit()
-    window0.destroy()       
+    window.destroy()       
 ###############################################################################
 #                               MAIN                                          #
 ###############################################################################
@@ -252,19 +252,16 @@ window.mainloop()
 # =============================================================================
 # Ready window
 # =============================================================================
-window0 = tkinter.Tk()
-window0.title("Ready") 
-screen_w,screen_h =window0.winfo_screenwidth(),window0.winfo_screenheight()# get width and height once for all
+window = tkinter.Tk()
+window.title("Ready") 
  
 position='\n    Pressing the TRIAL button you will see a video feedback from your webcam.    \n \
 Try to position your child in front of the webcam in order\n to have the best view possible of his/her gaze\n '
+ready=tkinter.Label(window, text=position,font=("Arial Bold", int(screen_w/96)),anchor='center').pack()
 
-ready=tkinter.Label(window0, text=position,font=("Arial Bold", int(screen_w/96)),anchor='center').pack()
-btn = tkinter.Button(window0, text="TRIAL",font=("Arial Bold", int(screen_w/96)), command=window0.destroy, anchor='s')
-close_btn= tkinter.Button(window0, text="CLOSE",font=("Arial Bold", int(screen_w/96)), command=exit_all, anchor='s')
-
-#center(window0)  #definition that take in account everything and center the window
-window0.mainloop()
+btn = tkinter.Button(window, text="TRIAL",font=("Arial Bold", int(screen_w/96)), command=window.destroy, anchor='s').pack()
+center(window)  #definition that take in account everything and center the window
+window.mainloop()
 
 # =============================================================================
 # Feedback webcam position
@@ -272,16 +269,21 @@ window0.mainloop()
 App(tkinter.Tk(), "Tkinter and OpenCV", 0 + cv2.CAP_DSHOW,'no','no')
 
 # =============================================================================
-# Ready window
+# Last Chance
 # =============================================================================
-window2 = tkinter.Tk()
-window2.title("Ready")  
-readyness='\n'+'       Pressing the button will start the video       '+'\n'
+window = tkinter.Tk()
+window.title("Ready")  
+screen_w,screen_h =window.winfo_screenwidth(),window.winfo_screenheight()# get width and height once for all
 
-ready=tkinter.Label(window2, text=readyness,font=("Arial Bold", int(screen_w/96)),anchor='center').pack()
-btn = tkinter.Button(window2, text="START",font=("Arial Bold", int(screen_w/96)), command=window2.destroy, anchor='s').pack()
-center(window2)  #definition that take in account everything and center the window
-window2.mainloop()
+readyness='\n'+'       Pressing the START button will start the video       \n \n\
+   If you need more time or you prefer to start the session later\n please click CLOSE and the program will shut-off   \n'
+ready=tkinter.Label(window, text=readyness,font=("Arial Bold", int(screen_w/96)),anchor='center').pack()
+center(window)  #definition that take in account everything and center the window
+window.update_idletasks()
+
+btn = tkinter.Button(window, text="START",font=("Arial Bold", int(screen_w/96)), command=window.destroy, anchor='s').pack(side=tkinter.LEFT,padx=window.winfo_width()/5,pady=window.winfo_height()/8.3)
+close_btn= tkinter.Button(window, text="CLOSE",font=("Arial Bold", int(screen_w/96)), command=exit_all, anchor='s').pack(side=tkinter.RIGHT,padx=window.winfo_width()/5,pady=window.winfo_height()/8.3)
+window.mainloop()
 
 # =============================================================================
 # Show video
@@ -294,22 +296,22 @@ App(tkinter.Tk(), "Tkinter and OpenCV", showing, final, num)
 print('Closing procedure')
 log.append('Closing procedure'+' : '+str(time.time()))
 fps= int(len(frame_recording)/(time_recording[-1]-time_recording[0]))
-fourcc = cv2.VideoWriter_fourcc(*"avc1")#*'DIVX', *'mp4v', *'X264','avc1'
-out = cv2.VideoWriter(final+'\\data\\webcam_'+num+'.mp4',fourcc,(int(width_web[0]),int(height_web[0])))
+fourcc = cv2.VideoWriter_fourcc(*"DIVX")#*'DIVX', *'mp4v', *'X264',  [mp4 +'avc1']
+out = cv2.VideoWriter(final+'\\data\\webcam_'+num+'.avi',fourcc,fps,(int(width_web[0]),int(height_web[0])))
 
 # =============================================================================
 # message for waiting
 # =============================================================================
-closure = tkinter.Tk()
-closure.title("Waiting")
-screen_w1=closure.winfo_screenwidth()
+window = tkinter.Tk()
+window.title("Waiting")
+screen_w1=window.winfo_screenwidth()
     
 closing='\n'+'       Thank you for your participation in this experiment       \nThe app will now close itself in few secodns\n'
 
-tkinter.Label(closure, text=closing,font=("Arial Bold", int(screen_w1/96)),anchor='center').pack()
-center(closure)  #definition that take in account everything and center the window
-closure.after(4000, lambda: closure.destroy())
-closure.mainloop()
+tkinter.Label(window, text=closing,font=("Arial Bold", int(screen_w1/96)),anchor='center').pack()
+center(window)  #definition that take in account everything and center the window
+window.after(4000, lambda: window.destroy())
+window.mainloop()
 
 # =============================================================================
 # write the frame to file mp4
