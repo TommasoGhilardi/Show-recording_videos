@@ -19,12 +19,13 @@ class App:
         # open video source
         self.vid = MyVideoCapture()
         self.canvas = tkinter.Canvas(window, width = self.vid.width, height = self.vid.height)
+        self.canvas.anchor(anchor=tkinter.CENTER)
         self.canvas.pack()
     
         # Button that lets the user close and proceed
         self.btn_close=tkinter.Button(window, text="CLOSE", width=50, command=self.closee)
         self.btn_close.pack(anchor=tkinter.CENTER, expand=True)
-
+        center(self.window)
         # Escape command that lets the user close
         self.window.bind("<Escape>",self.closee)
         
@@ -127,11 +128,20 @@ def center(win):
     win.deiconify()
     return()
     
-
-    
 def exit_all():
     exit()
     window.destroy()  
+    
+def closing_message():
+    window = tkinter.Tk()
+    window.title("Waiting")
+    screen_w1=window.winfo_screenwidth()
+    closing='\n'+'       Thank you for your participation in this experiment       \nThe app will now close itself in few secodns\n'
+    tkinter.Label(window, text=closing,font=("Arial Bold", int(screen_w1/96)),anchor='center').pack()
+    center(window)  #definition that takes in account everything and center the window
+    window.mainloop()
+    return()
+    
 ###############################################################################
 #                               MAIN                                          #
 ###############################################################################
@@ -176,7 +186,6 @@ if __name__ == '__main__':
         showing=video2
         num='2'
     
-    showing = ('C:\\Users\\docto\\Desktop\\vid.mp4')
     # =============================================================================
     # Welcome window
     # =============================================================================
@@ -217,7 +226,6 @@ if __name__ == '__main__':
     # =============================================================================
     window = tkinter.Tk()
     window.title("Ready")  
-    screen_w,screen_h =window.winfo_screenwidth(),window.winfo_screenheight()# get width and height once for all
     
     readyness='\n'+'       Pressing the START button will start the video       \n \n\
        If you need more time or you prefer to start the session later\n please click CLOSE and the program will shut-off   \n'
@@ -283,15 +291,8 @@ if __name__ == '__main__':
     # =============================================================================
     # message for waiting
     # =============================================================================
-    window = tkinter.Tk()
-    window.title("Waiting")
-    screen_w1=window.winfo_screenwidth()
-    closing='\n'+'       Thank you for your participation in this experiment       \nThe app will now close itself in few secodns\n'
-    tkinter.Label(window, text=closing,font=("Arial Bold", int(screen_w1/96)),anchor='center').pack()
-    center(window)  #definition that takes in account everything and center the window
-    window.after(4000, lambda: window.destroy())
-    window.mainloop()
-
+    task2 = Process(target=closing_message, args=[])
+    task2.start() 
 
     print('Started saving frames')
     log.append('Started saving frames'+' : '+str(time.time()))
@@ -306,3 +307,5 @@ if __name__ == '__main__':
         logg.write(err+'\n') 
     logg.close() 
     print('BYBY and thank you again')
+    task2.terminate()
+    exit_all()
