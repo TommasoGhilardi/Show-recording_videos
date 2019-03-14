@@ -327,7 +327,7 @@ print('part1')
 raw_fps = len(frames)/(frames[-1][1]-frames[0][1])
 fps= int(raw_fps)
 print(raw_fps)
-fourcc = cv2.VideoWriter_fourcc(*"avc1")#*'DIVX', *'mp4v', *'X264',  [mp4 +'avc1'] [avi + 'DIVX']
+fourcc = cv2.VideoWriter_fourcc(*"mp4v")#*'DIVX', *'avc1', *'X264',  [mp4 +'avc1'] [avi + 'DIVX']
 out = cv2.VideoWriter(final+'/data/webcam_'+num+'.mp4',fourcc,fps,(len(frames[0][0][1]),len(frames[0][0])))      
 time.sleep(1)
 
