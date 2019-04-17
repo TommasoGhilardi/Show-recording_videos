@@ -148,18 +148,6 @@ def center(win):
     win.geometry('{}x{}+{}+{}'.format(width, height, x, y))
     win.deiconify()
     return()
-    
-def center_mac(win):
-    win.update_idletasks()
-    win.overrideredirect(True)
-    width= win.winfo_width()
-    height = win.winfo_height()
-    x= (win.winfo_screenwidth()//2)-(width/2)
-    y= (win.winfo_screenheight()//2)-(height/2)
-    win.geometry('%dx%d+%d+%d' % (width,height,x,y))
-    win.attributes('-topmost', True)
-    win.deiconify()
-    return()
 
 def check_webcam():
     check = cv2.VideoCapture(0 + cv2.CAP_DSHOW)
