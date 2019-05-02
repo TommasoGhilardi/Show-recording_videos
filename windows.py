@@ -54,7 +54,7 @@ class App:
     
         # Button that lets the user close and proceed
         self.btn_close=tkinter.Button(window, text="CLOSE", width=50, command=self.closee)
-        self.btn_close.pack(anchor=tkinter.CENTER, expand=True)
+        self.btn_close.pack(expand=True)
         center(self.window)
         # Escape command that lets the user close
         self.window.bind("<Escape>",self.closee)
@@ -253,6 +253,7 @@ window.mainloop()
 
 '''checking the webcam'''
 check_webcam()
+print('Webcam identified')
 
 # =============================================================================
 # Ready window
