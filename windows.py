@@ -254,6 +254,7 @@ window.mainloop()
 '''checking the webcam'''
 check_webcam()
 print('Webcam identified')
+time.sleep(0.5)
 
 # =============================================================================
 # Ready window
