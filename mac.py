@@ -31,7 +31,7 @@ window.attributes('-topmost', True)
 
 window.mainloop()
 
-video_w, video_h=640,360
+video_w, video_h=1440,1080
 rapport = screen_h/video_h
 # =============================================================================
 # App for webcam feedback
