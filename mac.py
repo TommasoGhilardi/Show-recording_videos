@@ -209,10 +209,10 @@ log.append('Video identified'+' : '+str(time.time()))
 if 'webcam_0.mp4' not in listdir(final+'/data'):
     showing=video0
     num='0'
-elif 'webcam_0.mp4' in listdir(final+'/data') and 'webcam_1.avi' not in listdir(final+'\data'):
+elif 'webcam_0.mp4' in listdir(final+'/data') and 'webcam_1.mp4' not in listdir(final+'\data'):
     showing=video1
     num='1'
-elif 'webcam_0.mp4' in listdir(final+'/data') and 'webcam_1.avi' in listdir(final+'\data'):
+elif 'webcam_0.mp4' in listdir(final+'/data') and 'webcam_1.mp4' in listdir(final+'\data'):
     showing=video2
     num='2'
 else:
