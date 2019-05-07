@@ -206,13 +206,13 @@ log.append('Video identified'+' : '+str(time.time()))
 # =============================================================================
 # check which video to show(which session we are)
 # =============================================================================
-if 'webcam_0.mp4' not in listdir(final+'/data'):
+if 'webcam_0.mp4' not in listdir(final+'\\data') and 'webcam_1.mp4' not in listdir(final+'\data') and 'webcam_2.mp4' not in listdir(final+'\data'):
     showing=video0
     num='0'
-elif 'webcam_0.mp4' in listdir(final+'/data') and 'webcam_1.mp4' not in listdir(final+'\data'):
+elif 'webcam_0.mp4' in listdir(final+'\\data') and 'webcam_1.mp4' not in listdir(final+'\data') and 'webcam_2.mp4' not in listdir(final+'\data'):
     showing=video1
     num='1'
-elif 'webcam_0.mp4' in listdir(final+'/data') and 'webcam_1.mp4' in listdir(final+'\data'):
+elif 'webcam_0.mp4' in listdir(final+'\\data') and 'webcam_1.mp4' in listdir(final+'\data') and 'webcam_2.mp4' not in listdir(final+'\data'):
     showing=video2
     num='2'
 else:
@@ -222,7 +222,7 @@ else:
           Thank for your time!!'+'\n'
     wating=tkinter.Label(window, text=thanks,font=("Arial Bold", int(screen_w/96)),anchor='center').pack()
     center(window)  #definition that take in account everything and center the window
-    window.after(4000, lambda: window.destroy())
+    window.after(6000, lambda: window.destroy())
     window.mainloop()   
     sys.exit()
 
