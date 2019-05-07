@@ -9,6 +9,8 @@ import pyglet
 from os import listdir
 from tkinter import ttk
 
+pyglet.lib.load_library('avbin')
+pyglet.have_avbin=True
 
 # =============================================================================
 # Waiting window + screen realted info
