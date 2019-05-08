@@ -122,13 +122,13 @@ def find_folder():
 
 def findinpath(pathh):
     """what video should be played"""   
-    videos_check = 'video0.mp4', 'video1.mp4', 'video2.mp4'
+    videos_check = 'video0.mp4', 'video1.mp4', 'video2.mp4','music.mp3'
     if set(videos_check)<= set(listdir(pathh)):
         Video0,Video1,Video2 =pathh+'\\'+'video0.mp4',pathh+'\\'+'video1.mp4',pathh+'\\'+'video2.mp4'
     else:
         window = tkinter.Tk()
         window.title("Videos Problem")
-        problem= '\n    The program is unable to detect the videos.    \n\n\
+        problem= '\n    The program is unable to detect the media files.    \n\n\
             If you have modified or moved a file to the USB stick, please restore the original state of the USB stick.    \n\
                 If this is not possible, please contact the researcher following the provided instruction     \n\n'
         tkinter.Label(window, text=problem,font=("Arial Bold", int(screen_w/96)),anchor='center').pack()
