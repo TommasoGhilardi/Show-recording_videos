@@ -94,7 +94,6 @@ class MyVideoCapture:
         self.vid = cv2.VideoCapture(0)
         if not self.vid.isOpened():
             raise ValueError("Unable to open video source")
-
                 
         # Get video source width and height
         self.width = self.vid.get(cv2.CAP_PROP_FRAME_WIDTH)
@@ -158,6 +157,8 @@ def check_webcam():
         center(window)  #definition that take in account everything and center the window
         window.mainloop()
         sys.exit()
+    else:
+        check.release()
     return()
       
 def exit_all():
@@ -361,7 +362,7 @@ for images in range(0,len(frames)):
     
     progress_var.set(apporx)
     window.update()
-time.sleep(0.5)  # just to have  smoother transition
+time.sleep(3)  # just to have  smoother transition
 window.destroy()
 out.release()
 log.append('Frames saved'+' : '+str(time.time()))
