@@ -121,15 +121,22 @@ def find_folder():
     return os.path.dirname(os.path.realpath(sys.argv[0]))
 
 def findinpath(pathh):
-    """what video should be played"""
-    for x in listdir(pathh):
-        if 'video0' in x:
-            Video0=pathh+'\\'+x
-        elif 'video1' in x:
-            Video1= pathh+'\\'+x
-        elif 'video2' in x:
-            Video2=pathh+'\\'+x
-    return(Video0,Video1,Video2)   
+    """what video should be played"""   
+    videos_check = 'video0.mp4', 'video1.mp4', 'video2.mp4'
+    if set(videos_check)<= set(listdir(pathh)):
+        Video0,Video1,Video2 =pathh+'\\'+'video0.mp4',pathh+'\\'+'video1.mp4',pathh+'\\'+'video2.mp4'
+    else:
+        window = tkinter.Tk()
+        window.title("Videos Problem")
+        problem= '\n    The program is unable to detect the videos.    \n\n\
+            If you have modified or moved a file to the USB stick, please restore the original state of the USB stick.    \n\
+                If this is not possible, please contact the researcher following the provided instruction     \n\n'
+        tkinter.Label(window, text=problem,font=("Arial Bold", int(screen_w/96)),anchor='center').pack()
+        tkinter.Button(window, text="CLOSE the program",font=("Arial Bold",int(screen_w/96)), command=window.destroy, anchor='s').pack()
+        center(window)  #definition that take in account everything and center the window
+        window.mainloop()
+        sys.exit()
+    return(Video0,Video1,Video2)
         
 def center(win):
     """centers a tkinter window"""
@@ -153,8 +160,8 @@ def check_webcam():
     if not check.isOpened():
         window = tkinter.Tk()
         window.title("Webcam Problem")
-        problem= '    The program is unable to detect a webcam.    \n\
-        Please make sure that your computer or device has access to a webcam and try to start the program again    \n\n'
+        problem= '\n    The program is unable to detect a webcam.    \n\
+            Please make sure that your computer or device has access to a webcam and try to start the program again    \n\n'
         tkinter.Label(window, text=problem,font=("Arial Bold", int(screen_w/96)),anchor='center').pack()
         tkinter.Button(window, text="CLOSE the program",font=("Arial Bold",int(screen_w/96)), command=window.destroy, anchor='s').pack()
         center(window)  #definition that take in account everything and center the window
