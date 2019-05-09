@@ -155,7 +155,7 @@ def center(win):
     return()
 
 def check_webcam():
-    check = cv2.VideoCapture(0)
+    check = cv2.VideoCapture(0 + cv2.CAP_DSHOW)
     if not check.isOpened():
         window = tkinter.Tk()
         window.title("Webcam Problem")
@@ -182,7 +182,7 @@ def exit_all():
 ###############################################################################    
 final = find_folder() #find the folder where the script is in
 
-video0,video1,video2= findinpath(final+'/vid') #selecting the videos in the folders
+video0,video1,video2= findinpath(final+'\\vid') #selecting the videos in the folders
 
 # =============================================================================
 # check which video to show(which session we are)

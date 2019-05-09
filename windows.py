@@ -132,7 +132,6 @@ def findinpath(pathh):
         Video0,Video1,Video2 =pathh+'\\'+'video0.mp4',pathh+'\\'+'video1.mp4',pathh+'\\'+'video2.mp4'
         print('Videos identified')
         log.append('Video identified'+' : '+str(time.time()))
-        print('1')
     else:
         window = tkinter.Tk()
         window.title("Videos Problem")
@@ -144,7 +143,6 @@ def findinpath(pathh):
         center(window)  #definition that take in account everything and center the window
         window.mainloop()
         sys.exit()
-    print('2')
     return(Video0,Video1,Video2)
         
 def center(win):
@@ -165,7 +163,7 @@ def center(win):
     return()
 
 def check_webcam():
-    check = cv2.VideoCapture(0)
+    check = cv2.VideoCapture(0 + cv2.CAP_DSHOW)
     if not check.isOpened():
         window = tkinter.Tk()
         window.title("Webcam Problem")
@@ -177,10 +175,10 @@ def check_webcam():
         window.mainloop()
         sys.exit()
     else:
-        check.release()
         print('Webcam identified')
         log.append('Webcam identified'+' : '+str(time.time()))
         time.sleep(0.5)
+        check.release()
     return()
         
 def exit_all():
