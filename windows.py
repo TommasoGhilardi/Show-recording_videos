@@ -132,6 +132,7 @@ def findinpath(pathh):
         Video0,Video1,Video2 =pathh+'\\'+'video0.mp4',pathh+'\\'+'video1.mp4',pathh+'\\'+'video2.mp4'
         print('Videos identified')
         log.append('Video identified'+' : '+str(time.time()))
+        print('1')
     else:
         window = tkinter.Tk()
         window.title("Videos Problem")
@@ -143,6 +144,7 @@ def findinpath(pathh):
         center(window)  #definition that take in account everything and center the window
         window.mainloop()
         sys.exit()
+    print('2')
     return(Video0,Video1,Video2)
         
 def center(win):
@@ -219,7 +221,7 @@ def evaluation_of_attention():
 ###############################################################################    
 final = find_folder() #find the folder where the script is in
 
-video0,video1,video2= findinpath(final+'/vid') #selecting the videos in the folders
+video0,video1,video2= findinpath(final+'\\vid') #selecting the videos in the folders
 
 # =============================================================================
 # check which video to show(which session we are)
