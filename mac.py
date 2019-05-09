@@ -15,6 +15,8 @@ pyglet.have_avbin=True
 # =============================================================================
 # Waiting window + screen realted info
 # =============================================================================
+log=list() #logfile to store informations
+
 window = tkinter.Tk()
 screen_w,screen_h =window.winfo_screenwidth(),window.winfo_screenheight()# get width and height once for all
 window.title("Waiting")
@@ -120,13 +122,18 @@ class MyVideoCapture:
 # =============================================================================
 def find_folder():
     """find the path where the script is"""
-    return os.path.dirname(os.path.realpath(sys.argv[0]))
+    folder_path=os.path.dirname(os.path.realpath(sys.argv[0]))
+    log.append('Detected folder path'+' : '+str(time.time()))
+    print('Detected folder path')
+    return(folder_path)
 
 def findinpath(pathh):
     """what video should be played"""   
     videos_check = 'video0.mp4', 'video1.mp4', 'video2.mp4','music.mp3'
     if set(videos_check)<= set(listdir(pathh)):
         Video0,Video1,Video2 =pathh+'\\'+'video0.mp4',pathh+'\\'+'video1.mp4',pathh+'\\'+'video2.mp4'
+        print('Videos identified')
+        log.append('Video identified'+' : '+str(time.time()))
     else:
         window = tkinter.Tk()
         window.title("Videos Problem")
@@ -166,6 +173,9 @@ def check_webcam():
         sys.exit()
     else:
         check.release()
+        print('Webcam identified')
+        log.append('Webcam identified'+' : '+str(time.time()))
+        time.sleep(0.5)
     return()
       
 def exit_all():
@@ -204,15 +214,9 @@ def evaluation_of_attention():
 ###############################################################################
 #                               MAIN                                          #
 ###############################################################################    
-# initial settings #
-log=list()
 final = find_folder() #find the folder where the script is in
-print('Detected folder path')
-log.append('Detected folder path'+' : '+str(time.time()))
-video0,video1,video2= findinpath(final+'/vid') #selecting the videos in the folders
-print('Videos identified')
-log.append('Video identified'+' : '+str(time.time()))
 
+video0,video1,video2= findinpath(final+'/vid') #selecting the videos in the folders
 # =============================================================================
 # check which video to show(which session we are)
 # =============================================================================
@@ -236,6 +240,8 @@ else:
     window.mainloop()   
     sys.exit()
 
+log.append('Identified session'+' : '+str(time.time()))
+print('Identified session')
 # =============================================================================
 # Welcome window
 # =============================================================================
@@ -258,8 +264,6 @@ window.mainloop()
 
 '''checking the webcam'''
 check_webcam()
-print('Webcam identified')
-time.sleep(0.5)
 
 # =============================================================================
 # Ready window
@@ -272,7 +276,9 @@ ready=tkinter.Label(window, text=position,font=("Arial Bold", int(screen_w/96)),
 btn = tkinter.Button(window, text="TRIAL",font=("Arial Bold", int(screen_w/96)), command=window.destroy, anchor='s').pack()
 center(window)  #definition that take in account everything and center the window
 window.mainloop()
-App(tkinter.Tk(), "POSITIONING",final)  
+App(tkinter.Tk(), "POSITIONING",final)
+print('Image checked on webcam')
+log.append('Image checked on webcam'+' : '+str(time.time()))
 
 # =============================================================================
 # Last Chance
@@ -297,7 +303,10 @@ log.append('Session accepted'+' : '+str(time.time()))
 # =============================================================================
 # webcam activation
 # =============================================================================
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(0 + cv2.CAP_DSHOW)
+print('Webcam activated')
+log.append('Webcam activated'+' : '+str(time.time()))
+
 frames = list()
 time.sleep(1)
 
@@ -336,9 +345,13 @@ print('part1')
 # =============================================================================
 # Selection frames
 # =============================================================================
+'''extracting framerate'''
 raw_fps = len(frames)/(frames[-1][1]-frames[0][1])
 fps= int(raw_fps)
+log.append('Video palyed at'+' : '+str(fps))
 print(raw_fps)
+
+'''settign saving'''
 fourcc = cv2.VideoWriter_fourcc(*"mp4v")#*'DIVX', *'mp4v', *'X264',  [mp4 +'avc1'] [avi + 'DIVX']
 out = cv2.VideoWriter(final+'/data/webcam_'+num+'.mp4',fourcc,fps,(len(frames[0][0][1]),len(frames[0][0])))      
 time.sleep(1)
