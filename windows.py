@@ -275,7 +275,7 @@ check_webcam()
 # =============================================================================
 window = tkinter.Tk()
 window.title("Ready") 
-position='\n    Pressing the TRIAL button you will see a video feedback from your webcam.    \n \
+position='\n    Pressing the TRIAL button will display a video feedback from your webcam.    \n \
 Try to position your child in front of the webcam in order\n to have the best view possible of his/her gaze\n '
 ready=tkinter.Label(window, text=position,font=("Arial Bold", int(screen_w/96)),anchor='center').pack()
 btn = tkinter.Button(window, text="TRIAL",font=("Arial Bold", int(screen_w/96)), command=window.destroy, anchor='s').pack()
