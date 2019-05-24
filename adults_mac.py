@@ -277,11 +277,11 @@ time.sleep(1)
 # =============================================================================
 #  showing video
 # =============================================================================
-window=pyglet.window.Window(fullscreen=True)
+window=pyglet.window.Window(fullscreen=True, vsync= True)
 player=pyglet.media.Player()
-source = pyglet.media.StreamingSource()
-MediaLoad=pyglet.media.load(showing)
-player.queue(MediaLoad)
+source = pyglet.media.load(showing)
+stopper= source.duration-0.5
+player.queue(source)
 player.play()
 start=time.time() #timestemp of start
 
@@ -292,6 +292,14 @@ def on_draw():
         ret, frame = cap.read()
         frames.append([frame,time.time()])
 
+def close(event):
+    player.delete()
+    window.close()
+    source.delete()
+    pyglet.app.exit() 
+
+pyglet.clock.set_fps_limit(30)
+pyglet.clock.schedule_once(close,stopper)
 pyglet.app.run()
 stop=time.time() #timestemp of stop
 
