@@ -319,7 +319,7 @@ print('part1')
 # =============================================================================
 '''extracting framerate'''
 raw_fps = len(frames)/(frames[-1][1]-frames[0][1])
-fps= int(raw_fps)
+fps= round(raw_fps)
 log.append('Video palyed at'+' : '+str(fps)+' fps')
 print(raw_fps)
 

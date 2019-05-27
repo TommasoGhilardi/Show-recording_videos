@@ -281,7 +281,7 @@ time.sleep(1)
 # =============================================================================
 #  showing video
 # =============================================================================
-window=pyglet.window.Window(fullscreen=True, vsync= True)
+window=pyglet.window.Window(fullscreen=True)#, vsync= True
 player=pyglet.media.Player()
 source = pyglet.media.load(showing)
 stopper= source.duration-1
@@ -301,7 +301,7 @@ def close(event):
     source.delete()
     pyglet.app.exit() 
 
-pyglet.clock.set_fps_limit(30)
+#pyglet.clock.set_fps_limit(30)
 pyglet.clock.schedule_once(close,stopper)
 pyglet.app.run()
 stop=time.time() #timestemp of stop
@@ -323,7 +323,7 @@ print('part1')
 # =============================================================================
 '''extracting framerate'''
 raw_fps = len(frames)/(frames[-1][1]-frames[0][1])
-fps= int(raw_fps)
+fps= round(raw_fps)
 log.append('Video palyed at'+' : '+str(fps)+' fps')
 print(raw_fps)
 
