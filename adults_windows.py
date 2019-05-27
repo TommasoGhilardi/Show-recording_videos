@@ -284,17 +284,16 @@ time.sleep(1)
 window=pyglet.window.Window(fullscreen=True, vsync= True)
 player=pyglet.media.Player()
 source = pyglet.media.load(showing)
-stopper= source.duration-0.5
+stopper= source.duration-1
 player.queue(source)
 player.play()
 start=time.time() #timestemp of start
 
 @window.event
 def on_draw():
-    if player.source and player.source.video_format:
-        player.get_texture().blit(screen_w/2-video_w*rapport/2, screen_h/2-video_h*rapport/2 , width=video_w*rapport, height=video_h*rapport)
-        ret, frame = cap.read()
-        frames.append([frame,time.time()])
+    player.get_texture().blit(screen_w/2-video_w*rapport/2, screen_h/2-video_h*rapport/2 , width=video_w*rapport, height=video_h*rapport)
+    ret, frame = cap.read()
+    frames.append([frame,time.time()])
 
 def close(event):
     player.delete()

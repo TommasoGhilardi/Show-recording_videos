@@ -316,7 +316,7 @@ time.sleep(1)
 window=pyglet.window.Window(fullscreen=True, vsync= True)
 player=pyglet.media.Player()
 source = pyglet.media.load(showing)
-stopper= source.duration-0.5
+stopper= source.duration-1
 player.queue(source)
 player.play()
 start=time.time() #timestemp of start
