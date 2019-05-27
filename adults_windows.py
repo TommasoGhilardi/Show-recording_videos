@@ -281,7 +281,7 @@ time.sleep(1)
 # =============================================================================
 #  showing video
 # =============================================================================
-window=pyglet.window.Window(fullscreen=True)#, vsync= True
+window=pyglet.window.Window(fullscreen=True, vsync= True)
 player=pyglet.media.Player()
 source = pyglet.media.load(showing)
 stopper= source.duration-1
@@ -301,22 +301,19 @@ def close(event):
     source.delete()
     pyglet.app.exit() 
 
-#pyglet.clock.set_fps_limit(30)
+pyglet.clock.set_fps_limit(30)
 pyglet.clock.schedule_once(close,stopper)
 pyglet.app.run()
 stop=time.time() #timestemp of stop
 
 '''closing video'''
-#player.delete(),
-window.close(), player.delete(), source.delete()
-pyglet.app.exit()
+window.close(), player.delete(), source.delete(),pyglet.app.exit()
 cap.release()
 log.append('Webcam stoppped'+' : '+str(stop))
 
 log.append('Video start'+' : '+str(start))
 log.append('Video stop'+' : '+str(stop))
 print('part1')
-
 
 # =============================================================================
 # Selection frames

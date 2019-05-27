@@ -305,8 +305,7 @@ stop=time.time() #timestemp of stop
 
 '''closing video'''
 #player.delete(),
-window.close(), player.delete(), source.delete()
-pyglet.app.exit()
+window.close(), player.delete(), source.delete(), pyglet.app.exit()
 cap.release()
 log.append('Webcam stoppped'+' : '+str(stop))
 
