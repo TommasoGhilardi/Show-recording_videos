@@ -267,7 +267,7 @@ log.append('Session accepted'+' : '+str(time.time()))
 # =============================================================================
 # webcam activation
 # =============================================================================
-cap = cv2.VideoCapture(0 + cv2.CAP_DSHOW)
+cap = cv2.VideoCapture(0)
 print('Webcam activated')
 log.append('Webcam activated'+' : '+str(time.time()))
 
