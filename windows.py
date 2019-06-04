@@ -352,7 +352,6 @@ log.append('Webcam stoppped'+' : '+str(stop))
 
 log.append('Video start'+' : '+str(start))
 log.append('Video stop'+' : '+str(stop))
-print('part1')
 
 # =============================================================================
 # Selection frames
