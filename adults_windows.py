@@ -181,8 +181,9 @@ def exit_all():
 #                               MAIN                                          #
 ###############################################################################    
 final = find_folder() #find the folder where the script is in
-
-video0,video1,video2= findinpath(final+[s for s in listdir(final) if 'set' in s][0])  #selecting the videos in the folders
+SET = [s for s in listdir(final) if 'set' in s][0]
+log.insert(0,'The training set is: '+SET+'\n')
+video0,video1,video2= findinpath(final+SET)  #selecting the videos in the folders
 
 # =============================================================================
 # check which video to show(which session we are)
