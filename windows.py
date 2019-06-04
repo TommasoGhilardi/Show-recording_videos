@@ -219,7 +219,7 @@ def evaluation_of_attention():
 ###############################################################################    
 final = find_folder() #find the folder where the script is in
 
-video0,video1,video2= findinpath(final+'\\vid') #selecting the videos in the folders
+video0,video1,video2= findinpath(final+[s for s in listdir(final) if 'set' in s][0])  #selecting the videos in the folders
 
 # =============================================================================
 # check which video to show(which session we are)
