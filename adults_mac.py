@@ -123,7 +123,7 @@ def findinpath(pathh):
     """what video should be played"""   
     videos_check = 'video0.mp4', 'video1.mp4', 'video2.mp4'
     if set(videos_check)<= set(listdir(pathh)):
-        Video0,Video1,Video2 =pathh+'\\'+'video0.mp4',pathh+'\\'+'video1.mp4',pathh+'\\'+'video2.mp4'
+        Video0,Video1,Video2 =pathh+'/'+'video0.mp4',pathh+'/'+'video1.mp4',pathh+'/'+'video2.mp4'
         print('Videos identified')
         log.append('Video identified'+' : '+str(time.time()))
     else:
