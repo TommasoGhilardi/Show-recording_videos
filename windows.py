@@ -166,7 +166,7 @@ def check_webcam():
     if not check.isOpened():
         window = tkinter.Tk()
         window.title("Webcam Problem")
-        problem= '    The program is unable to detect a webcam.    \n\
+        problem= '\n    The program is unable to detect a webcam.    \n\
         Please make sure that your computer or device has access to a webcam and try to start the program again    \n\n'
         tkinter.Label(window, text=problem,font=("Arial Bold", int(screen_w/96)),anchor='center').pack()
         tkinter.Button(window, text="CLOSE the program",font=("Arial Bold",int(screen_w/96)), command=window.destroy, anchor='s').pack()
