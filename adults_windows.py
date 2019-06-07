@@ -7,8 +7,6 @@ Created on Thu Feb  7 14:24:12 2019
 import os , sys, cv2, time, tkinter, PIL.Image, PIL.ImageTk
 import pyglet
 from os import listdir
-from tkinter import ttk
-
 
 # =============================================================================
 # Waiting window + screen realted info
@@ -34,7 +32,7 @@ window.mainloop()
 
 video_w, video_h=1440,1080
 rapport = screen_h/video_h
-
+fram=0
 # =============================================================================
 # App for webcam feedback
 # =============================================================================
@@ -275,9 +273,13 @@ log.append('Session accepted'+' : '+str(time.time()))
 cap = cv2.VideoCapture(0 + cv2.CAP_DSHOW)
 print('Webcam activated')
 log.append('Webcam activated'+' : '+str(time.time()))
+width_w = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
+height_w = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
 
-frames = list()
-time.sleep(1)
+time.sleep(0.5)
+fourcc = cv2.VideoWriter_fourcc(*"mp4v")#*'DIVX', *'mp4v', *'X264',  [mp4 +'avc1'] [avi + 'DIVX']
+out = cv2.VideoWriter(final+'/data/webcam_'+num+'.mp4',fourcc,15,(int(width_w),int(height_w)))   
+time.sleep(0.5)
 
 # =============================================================================
 #  showing video
@@ -294,7 +296,9 @@ start=time.time() #timestemp of start
 def on_draw():
     player.get_texture().blit(screen_w/2-video_w*rapport/2, screen_h/2-video_h*rapport/2 , width=video_w*rapport, height=video_h*rapport)
     ret, frame = cap.read()
-    frames.append([frame,time.time()])
+    out.write(cv2.flip(frame))
+    global fram
+    fram= fram +1
 
 def close(event):
     player.delete()
@@ -309,59 +313,15 @@ stop=time.time() #timestemp of stop
 
 '''closing video'''
 window.close(), player.delete(), source.delete(),pyglet.app.exit()
-cap.release()
+cap.release(), out.release()
 log.append('Webcam stoppped'+' : '+str(stop))
 
 log.append('Video start'+' : '+str(start))
 log.append('Video stop'+' : '+str(stop))
 
-# =============================================================================
-# Selection frames
-# =============================================================================
-'''extracting framerate'''
-raw_fps = len(frames)/(frames[-1][1]-frames[0][1])
-fps= round(raw_fps)
-log.append('Video played at'+' : '+str(fps)+' fps')
-print(raw_fps)
-
-'''settign saving'''
-fourcc = cv2.VideoWriter_fourcc(*"mp4v")#*'DIVX', *'mp4v', *'X264',  [mp4 +'avc1'] [avi + 'DIVX']
-out = cv2.VideoWriter(final+'/data/webcam_'+num+'.mp4',fourcc,fps,(len(frames[0][0][1]),len(frames[0][0])))      
-time.sleep(1)
-
-## =============================================================================
-## Saving frames
-## =============================================================================
-'''message of waiting'''
-window = tkinter.Tk()
-window.title('Saving')
-progress_var = tkinter.DoubleVar() #here you have ints but when calc. %'s usually floats
-saving='\n    The video session is finished.    \n\
-    Please wait few seconds while the program saves the webcam video.    \n\
-    Please do not turn off the computer and do not eject the USB drive    \n'
-tkinter.Label(window, text=saving,font=("Arial Bold", int(screen_w/96)),anchor='center').pack()
-progressbar = ttk.Progressbar(window, variable=progress_var, maximum=100)
-progressbar.pack(fill=tkinter.X, expand=1, pady=int(screen_w/54))
-center(window)
-
-print('Started saving frames')
-log.append('Started saving frames'+' : '+str(time.time()))
-
-for images in range(0,len(frames)):
-    image= frames[images]
-    out.write(frames[images][0])
-    percentage= 100*images/len(frames)
-    apporx = int(percentage/5)*5
-    
-    progress_var.set(apporx)
-    window.update()
-time.sleep(3)  # just to have  smoother transition
-window.destroy()
-out.release()
-log.append('Frames saved'+' : '+str(time.time()))
-print('Frames saved')
-
-time.sleep(1)
+fps = round(fram/(stop-start))
+log.append('Framerate of'+' : '+str(fps)+' fps')
+print(str(fps))
 
 # =============================================================================
 # saving logs
@@ -370,14 +330,20 @@ logg= open(final+'\\data\\log_'+num+'.txt','w+')
 for err in log:
     logg.write(err+'\n') 
 logg.close() 
+time.sleep(1)
 
 # =============================================================================
 # BYBY
 # =============================================================================
+if num =='0':
+    byby='\nThe first session is now finished.\n    Remeber to watch the second video tomorrow.    \n\n    Thank you for your participation!    \n'
+elif num=='1':
+    byby='\nThe second session is now finished.\n    Remeber to watch the third video tomorrow.    \n\n    Thank you for your participation!    \n'
+elif num=='2':
+    byby='\nYou completed all three sessions.\n    Remember your appointment for the EEG session.    \n\n    Thank you for your participation!    \n'
+
 window = tkinter.Tk()
 window.title("Goodbye")
-byby= '\n    The experiment is now finished.    \n\n    Thank you for your participation    \n'
-
 tkinter.Label(window, text=byby,font=("Arial Bold", int(screen_w/96)),anchor='center').pack()
 btn = tkinter.Button(window, text="BYBY",font=("Arial Bold", int(screen_w/96)), command=window.destroy, anchor='s').pack()
 center(window)  #definition that take in account everything and center the window
