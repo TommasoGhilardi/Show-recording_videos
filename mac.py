@@ -140,7 +140,7 @@ def findinpath(pathh):
         window.title("Videos Problem")
         problem= '\nThe program is unable to detect the media files.\n\n\
            If you have modified or moved any file on the USB drive, please restore the original state of the USB drive.   \n\
-        If unable to restore the original state, please contact the researcher following the provided instruction.\n\n'
+        If unable to restore the original state, please contact the researcher by following the provided instruction.\n\n'
         tkinter.Label(window, text=problem,font=("Arial Bold", int(screen_w/96)),anchor='center').pack()
         tkinter.Button(window, text="CLOSE the program",font=("Arial Bold",int(screen_w/96)), command=window.destroy, anchor='s').pack()
         center(window)  #definition that take in account everything and center the window
@@ -187,8 +187,8 @@ def evaluation_of_attention():
     options=0,0
     while sum(options)!=1:
         window = tkinter.Tk()
-        request= "\n  Please evaluate the level of attention of the infant during this session on a scale  \n\
-           from 0 to 10. Where 0 is extremely distracted and 10 is extremely attentive  \n"
+        request= "\n  Please evaluate the level of attention of your child during this session on the scale  \n\
+           from 1 to 10. Where 1 is extremely distracted and 10 is extremely attentive.  \n"
         tkinter.Label(window, text=request,font=("Arial Bold",int(screen_w/96)),anchor='center').pack()
         lbl = tkinter.LabelFrame(window ,text="Steps:").pack()
         res1,res2,res3,res4,res5,res6,res7,res8,res9,res10 = tkinter.IntVar(),tkinter.IntVar(),tkinter.IntVar(),tkinter.IntVar(),\
@@ -250,16 +250,16 @@ print('Identified session')
 # =============================================================================
 window = tkinter.Tk()
 window.title("Welcome")
-thank = tkinter.Label(window, text="\nThank you for your participation to this experiment.\n",font=("Arial Bold", int(screen_w/80)),anchor='n').pack()
-instructions= 'This study is divided in two phases: the training phase and the testing phase.\n\n \
+thank = tkinter.Label(window, text='\nThank you for participating in this study.\n',font=("Arial Bold", int(screen_w/80)),anchor='n').pack()
+instructions= 'This study is divided into two phases: the training phase and the testing phase.\n\n \
 The training phase will take place during the three days before the test phase.\n \
 During this period we ask you to watch three videos (one each day) using this program.\n \
-In each session a video will be displayed on your screen while a feedback from the webcam will be recorded.\n\n\
-   The program will not install anything on your device and the videos will be only saved on the encrypted USB drive:   \n\
-you will have total control over them\n\n\
+In each session a video will be displayed on your screen, while a feedback from the webcam will be recorded.\n\n\
+   The program will not install anything on your device and the videos will only be saved on the encrypted USB drive:   \n\
+you will have complete control over them\n\n\
 Please remember to bring the USB drive to the test phase.\n\
 The videos will be analyzed in order to evaluate the level of attention paid to the stimuli.\n\n \
-When ready, click on the CONTINUE button to progress with the session\n'
+When you are ready, click on the CONTINUE button to progress with the session\n'
 
 instruction=tkinter.Label(window, text=instructions,font=("Arial Bold", int(screen_w/96)),anchor='center').pack()
 btn = tkinter.Button(window, text="CONTINUE",font=("Arial Bold", int(screen_w/96)), command=window.destroy, anchor='s').pack()
@@ -274,8 +274,8 @@ check_webcam()
 # =============================================================================
 window = tkinter.Tk()
 window.title("Ready") 
-position='\n   Pressing the TRIAL button a video feedback from your webcam will be displayed.   \n \
-Try to position your yourself in front of the webcam in order\n to frame your face as accurately as possible \n'
+position='\n   Pressing the TRIAL button will display a video feedback from your webcam.   \n \
+Try to position yourself in front of the webcam in order\n to frame your face as accurately as possible \n'
 ready=tkinter.Label(window, text=position,font=("Arial Bold", int(screen_w/96)),anchor='center').pack()
 btn = tkinter.Button(window, text="TRIAL",font=("Arial Bold", int(screen_w/96)), command=window.destroy, anchor='s').pack()
 center(window)  #definition that take in account everything and center the window
@@ -290,11 +290,11 @@ log.append('Image checked on webcam'+' : '+str(time.time()))
 window = tkinter.Tk()
 window.title("Ready")  
 
-readyness='\nPressing the START button the video session will begin\n\
+readyness='\nPressing the START button will start the video session.\n\
 The session will last around 9 minutes.\n\n\
-If you are not ready or you prefer to start the session later,\n please click CLOSE and the program will shut-off\n\n\
-If you decide to proceed please click START and try to watch the entire session\n\n\
-   If for any reason you will decide to interrupt the session please press the ESC key   \n'
+If you are not ready or you prefer to start the session later,\n please click CLOSE and the program will close.\n\n\
+If you decide to proceed please click the START button. We ask you to try to watch the entire session.\n\n\
+   If for any reason you decide to interrupt the session please press the ESC key.   \n'
 ready=tkinter.Label(window, text=readyness,font=("Arial Bold", int(screen_w/96)),anchor='center').pack()
 window.update_idletasks()
 btn = tkinter.Button(window, text="START",font=("Arial Bold", int(screen_w/96)), command=window.destroy, anchor='s').pack(side=tkinter.LEFT,padx=window.winfo_width()/5,pady=window.winfo_height()/8.3)
