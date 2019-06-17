@@ -285,7 +285,7 @@ time.sleep(0.5)
 # =============================================================================
 #  showing video
 # =============================================================================
-window=pyglet.window.Window(fullscreen=True)
+window=pyglet.window.Window(fullscreen=True, vsync= False)
 player=pyglet.media.Player()
 source = pyglet.media.load(showing)
 stopper= source.duration-1
