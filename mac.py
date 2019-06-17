@@ -382,7 +382,7 @@ elif num=='2':
 window = tkinter.Tk()
 window.title("Goodbye")
 tkinter.Label(window, text=byby,font=("Arial Bold", int(screen_w/96)),anchor='center').pack()
-btn = tkinter.Button(window, text="BYBY",font=("Arial Bold", int(screen_w/96)), command=window.destroy, anchor='s').pack()
+btn = tkinter.Button(window, text="Goodbye",font=("Arial Bold", int(screen_w/96)), command=window.destroy, anchor='s').pack()
 center(window)  #definition that take in account everything and center the window
 window.mainloop()
 sys.exit()
