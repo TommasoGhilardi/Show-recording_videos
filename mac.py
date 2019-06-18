@@ -331,7 +331,7 @@ start=time.time() #timestemp of start
 
 @window.event
 def on_draw():
-    if player.source and player.source.video_frame:
+    if player.source and player.source.video_format:
         player.get_texture().blit(screen_w/2-video_w*rapport/2, screen_h/2-video_h*rapport/2 , width=video_w*rapport, height=video_h*rapport)
         ret, frame = cap.read()
         out.write(frame)
