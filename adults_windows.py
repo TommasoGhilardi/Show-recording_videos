@@ -271,21 +271,24 @@ log.append('Session accepted'+' : '+str(time.time()))
 # =============================================================================
 # webcam activation
 # =============================================================================
-cap = cv2.VideoCapture(0 + cv2.CAP_DSHOW)
+cap = cv2.VideoCapture(0)
 print('Webcam activated')
 log.append('Webcam activated'+' : '+str(time.time()))
 width_w = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
 height_w = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
 
 time.sleep(0.5)
-fourcc = cv2.VideoWriter_fourcc(*"mp4v")#*'DIVX', *'mp4v', *'X264',  [mp4 +'avc1'] [avi + 'DIVX']
-out = cv2.VideoWriter(final+'/data/webcam_'+num+'.mp4',fourcc,15,(int(width_w),int(height_w)))   
+fourcc = cv2.VideoWriter_fourcc("mp4v")#'DIVX', *'mp4v', *'X264',  [mp4 +'avc1'] [avi + 'DIVX']
+out = cv2.VideoWriter(final+'/data/webcam_'+num+'.mp4',fourcc,15,(int(width_w*0.3),int(height_w*0.3)),isColor=False)
+out.set(cv2.VIDEOWRITER_PROP_QUALITY,1)
+#out.set(cv2.VIDEOWRITER_PROP_NSTRIPES,2)
 time.sleep(0.5)
 
 # =============================================================================
 #  showing video
 # =============================================================================
-window=pyglet.window.Window(fullscreen=True, vsync= False)
+pos1,pos2,dim1,dim2=screen_w/2-video_w*rapport/2, screen_h/2-video_h*rapport/2 ,video_w*rapport,video_h*rapport
+window=pyglet.window.Window(fullscreen=True, vsync= True)
 player=pyglet.media.Player()
 source = pyglet.media.load(showing)
 source.video_format.frame_rate=16
@@ -296,9 +299,11 @@ start=time.time() #timestemp of start
 
 @window.event
 def on_draw():
+    window.clear()
+    ret, frame = cap.read()
     if player.source and player.source.video_format:
-        player.get_texture().blit(screen_w/2-video_w*rapport/2, screen_h/2-video_h*rapport/2 , width=video_w*rapport, height=video_h*rapport)
-        ret, frame = cap.read()
+        frame=cv2.resize(cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY),None,fx=0.3,fy=0.3,interpolation=cv2.INTER_NEAREST)
+        player.get_texture().blit(pos1,pos2, width=dim1, height=dim2)
         out.write(frame)
         global fram
         fram= fram +1
@@ -309,7 +314,6 @@ def close(event):
     source.delete()
     pyglet.app.exit() 
 
-pyglet.clock.set_fps_limit(30)
 pyglet.clock.schedule_once(close,stopper)
 pyglet.app.run()
 stop=time.time() #timestemp of stop
