@@ -7,7 +7,6 @@ Created on Thu Feb  7 14:24:12 2019
 import os , sys, cv2, time, tkinter, PIL.Image, PIL.ImageTk
 import pyglet
 from os import listdir
-from tkinter import ttk
 
 pyglet.lib.load_library('avbin')
 pyglet.have_avbin=True
@@ -60,10 +59,20 @@ class App:
         # Button that lets the user close and proceed
         self.btn_close=tkinter.Button(window, text="CLOSE", width=50, command=self.closee)
         self.btn_close.pack(expand=True)
-        center(self.window)
+
+        # Positioning
+        self.window.update_idletasks()
+        self.window.overrideredirect(True)
+        width= self.window.winfo_width()
+        height = self.window.winfo_height()
+        x= (self.window.winfo_screenwidth()//2)-(width/2)
+        y= 0
+        self.window.geometry('%dx%d+%d+%d' % (width,height,x,y))
+        self.window.attributes('-topmost', True)
+        
         # Escape command that lets the user close
         self.window.bind("<Escape>",self.closee)
-        
+
         # After it is called once, the update method will be automatically called every delay milliseconds
         self.delay = 1
         self.music()

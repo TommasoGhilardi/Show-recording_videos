@@ -56,8 +56,16 @@ class App:
         # Button that lets the user close and proceed
         self.btn_close=tkinter.Button(window, text="CLOSE", width=50, command=self.closee)
         self.btn_close.pack(expand=True)
-        center(self.window)
-        # Escape command that lets the user close
+        
+       # Positioning
+        window.attributes('-topmost', True) # note - before topmost
+        self.window.overrideredirect(True)
+        self.window.update_idletasks()
+        width = self.window.winfo_width()
+        height = self.window.winfo_height()
+        x = (self.window.winfo_screenwidth() // 2) - (width // 2)
+        y = 0
+        self.window.geometry('{}x{}+{}+{}'.format(width, height, x, y))        # Escape command that lets the user close
         self.window.bind("<Escape>",self.closee)
         
         # After it is called once, the update method will be automatically called every delay milliseconds
