@@ -323,13 +323,12 @@ log.append('Session accepted'+' : '+str(time.time()))
 cap = cv2.VideoCapture(0 + cv2.CAP_DSHOW)
 print('Webcam activated')
 log.append('Webcam activated'+' : '+str(time.time()))
-width_w = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
-height_w = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
-
+width_w = 160
+height_w = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)*160/cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 
 time.sleep(0.5)
 fourcc = cv2.VideoWriter_fourcc(*"mp4v")#'DIVX', *'mp4v', *'X264',  [mp4 +'avc1'] [avi + 'DIVX']
-out = cv2.VideoWriter(final+'/data/webcam_'+num+'.mp4',fourcc,15,(int(width_w*0.3),int(height_w*0.3)),isColor=False)
+out = cv2.VideoWriter(final+'/data/webcam_'+num+'.mp4',fourcc,15,(width_w,height_w),isColor=False)
 out.set(cv2.VIDEOWRITER_PROP_QUALITY,1)
 time.sleep(0.5)
 
@@ -351,7 +350,7 @@ def on_draw():
     window.clear()
     ret, frame = cap.read()
     if player.source and player.source.video_format:
-        frame=cv2.resize(cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY),None,fx=0.3,fy=0.3,interpolation=cv2.INTER_NEAREST)
+        frame=cv2.resize(cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY),(width_w,height_w),interpolation=cv2.INTER_NEAREST)
         player.get_texture().blit(pos1,pos2, width=dim1, height=dim2)
         out.write(frame)
         global fram
