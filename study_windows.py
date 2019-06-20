@@ -59,14 +59,14 @@ class App:
         self.btn_close=tkinter.Button(window, text="CLOSE", width=50, command=self.closee)
         self.btn_close.pack(expand=True)
         # Positioning
-        window.attributes('-topmost', True) # note - before topmost
+        self.window.attributes('-topmost', True) # note - before topmost
         self.window.overrideredirect(True)
         self.window.update_idletasks()
-        width = self.window.winfo_width()
-        height = self.window.winfo_height()
-        x = (self.window.winfo_screenwidth() // 2) - (width // 2)
-        y = 0
-        self.window.geometry('{}x{}+{}+{}'.format(width, height, x, y))
+        self.width = self.window.winfo_width()
+        self.height = self.window.winfo_height()
+        self.x = (self.window.winfo_screenwidth() // 2) - (self.width // 2)
+        self.y = 0
+        self.window.geometry('{}x{}+{}+{}'.format(self.width, self.height, self.x, self.y))
                 
         # Escape command that lets the user close
         self.window.bind("<Escape>",self.closee)

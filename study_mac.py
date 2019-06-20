@@ -67,9 +67,9 @@ class App:
         self.window.overrideredirect(True)
         self.width= self.window.winfo_width()
         self.height = self.window.winfo_height()
-        x= (self.window.winfo_screenwidth()//2)-(self.width/2)
-        y= 0
-        self.window.geometry('%dx%d+%d+%d' % (self.width,self.height,x,y))
+        self.x= (self.window.winfo_screenwidth()//2)-(self.width/2)
+        self.y= 0
+        self.window.geometry('%dx%d+%d+%d' % (self.width,self.height,self.x,self.y))
         self.window.attributes('-topmost', True)
         # Escape command that lets the user close
         self.window.bind("<Escape>",self.closee)
