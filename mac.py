@@ -326,7 +326,7 @@ print(str(width_w))
 
 time.sleep(0.5)
 fourcc = cv2.VideoWriter_fourcc(*"mp4v")#'DIVX', *'mp4v', *'X264',  [mp4 +'avc1'] [avi + 'DIVX']
-out = cv2.VideoWriter(final+'/data/webcam_'+num+'.mp4',fourcc,15,(int(width_w)*0.3,int(height_w)*0.3),isColor=False)
+out = cv2.VideoWriter(final+'/data/webcam_'+num+'.mp4',fourcc,15,(int(width_w*0.3),int(height_w*0.3)),isColor=False)
 out.set(cv2.VIDEOWRITER_PROP_QUALITY,1)
 time.sleep(0.5)
 
