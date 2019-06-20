@@ -288,6 +288,7 @@ time.sleep(0.5)
 window=pyglet.window.Window(fullscreen=True, vsync= False)
 player=pyglet.media.Player()
 source = pyglet.media.load(showing)
+source.video_format.frame_rate=16
 stopper= source.duration-1
 player.queue(source)
 player.play()
@@ -338,11 +339,11 @@ time.sleep(1)
 # BYBY
 # =============================================================================
 if num =='0':
-    byby='\nThe first session is now finished.\n    Remeber to watch the second video tomorrow.    \n\n    Thank you for your participation!    \n'
+    byby='\nThe first session is now finished.\n    Please remeber to watch the second video tomorrow.    \n\n    Thank you for your participation!    \n'
 elif num=='1':
-    byby='\nThe second session is now finished.\n    Remeber to watch the third video tomorrow.    \n\n    Thank you for your participation!    \n'
+    byby='\nThe second session is now finished.\n    Please remeber to watch the third video tomorrow.    \n\n    Thank you for your participation!    \n'
 elif num=='2':
-    byby='\nYou completed all three sessions.\n    Remember your appointment for the EEG session.    \n\n    Thank you for your participation!    \n'
+    byby='\nYou completed all three sessions.\n    Please remember your appointment for the EEG session.    \n\n    Thank you for your participation!    \n'
 
 window = tkinter.Tk()
 window.title("Goodbye")
