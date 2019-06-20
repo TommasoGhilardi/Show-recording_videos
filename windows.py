@@ -331,7 +331,6 @@ time.sleep(0.5)
 fourcc = cv2.VideoWriter_fourcc(*"mp4v")#'DIVX', *'mp4v', *'X264',  [mp4 +'avc1'] [avi + 'DIVX']
 out = cv2.VideoWriter(final+'/data/webcam_'+num+'.mp4',fourcc,15,(int(width_w*0.3),int(height_w*0.3)),isColor=False)
 out.set(cv2.VIDEOWRITER_PROP_QUALITY,1)
-#out.set(cv2.VIDEOWRITER_PROP_NSTRIPES,2)
 time.sleep(0.5)
 
 # =============================================================================
@@ -341,7 +340,7 @@ pos1,pos2,dim1,dim2=screen_w/2-video_w*rapport/2, screen_h/2-video_h*rapport/2 ,
 window=pyglet.window.Window(fullscreen=True, vsync= True)
 player=pyglet.media.Player()
 source = pyglet.media.load(showing)
-source.video_format.frame_rate=16
+#source.video_format.frame_rate=16
 stopper= source.duration-1
 player.queue(source)
 player.play()

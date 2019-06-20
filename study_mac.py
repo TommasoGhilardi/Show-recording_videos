@@ -94,7 +94,7 @@ class App:
         self.window.after(self.delay, self.update)
                           
 class MyVideoCapture:
-    def _init_(self):
+    def __init__(self):
         # Open the video source
         self.vid = cv2.VideoCapture(0)
         if not self.vid.isOpened():

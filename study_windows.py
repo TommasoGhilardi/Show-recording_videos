@@ -142,7 +142,7 @@ def findinpath(pathh):
         If unable to restore the original state, please contact the researcher by following the provided instruction.\n\n'
         tkinter.Label(window, text=problem,font=("Arial Bold", int(screen_w/96)),anchor='center').pack()
         tkinter.Button(window, text="CLOSE the program",font=("Arial Bold",int(screen_w/96)), command=window.destroy, anchor='s').pack()
-#        center(window)  #definition that take in account everything and center the window
+        center(window)  #definition that take in account everything and center the window
         window.mainloop()
         sys.exit()
     return(Video0,Video1,Video2)
@@ -302,7 +302,7 @@ pos1,pos2,dim1,dim2=screen_w/2-video_w*rapport/2, screen_h/2-video_h*rapport/2 ,
 window=pyglet.window.Window(fullscreen=True, vsync= True)
 player=pyglet.media.Player()
 source = pyglet.media.load(showing)
-source.video_format.frame_rate=16
+#source.video_format.frame_rate=16
 stopper= source.duration-1
 player.queue(source)
 player.play()
