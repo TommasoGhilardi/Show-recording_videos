@@ -30,6 +30,9 @@ window.geometry('{}x{}+{}+{}'.format(width, height, x, y))
 window.after(3000, lambda: window.destroy())
 window.mainloop()
 
+# Get time and date
+log.append('Video watched on'+' : '+time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()))
+
 video_w, video_h=1440,1080
 rapport = screen_h/video_h
 fram=0
