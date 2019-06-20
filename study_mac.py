@@ -43,7 +43,7 @@ fram=0
 # App for webcam feedback
 # =============================================================================
 class App:
-    def _init_(self, window, window_title, path):
+    def __init__(self, window, window_title, path):
         self.window = window
         self.path=path
         self.window.title(window_title)
