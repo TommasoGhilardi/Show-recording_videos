@@ -275,7 +275,7 @@ ready=tkinter.Label(window, text=readyness,font=("Arial Bold", int(screen_w/96))
 window.update_idletasks()
 btn = tkinter.Button(window, text="START",font=("Arial Bold", int(screen_w/96)), command=window.destroy, anchor='s').pack(side=tkinter.LEFT,padx=window.winfo_width()/5,pady=window.winfo_height()/8.3)
 close_btn= tkinter.Button(window, text="CLOSE",font=("Arial Bold", int(screen_w/96)), command=exit_all, anchor='s').pack(side=tkinter.RIGHT,padx=window.winfo_width()/5,pady=window.winfo_height()/8.3)
-#center(window)  #definition that takes in account everything and center the window
+center(window)  #definition that takes in account everything and center the window
 window.mainloop()
 print('Session accepted')
 log.append('Session accepted'+' : '+str(time.time()))
@@ -293,7 +293,6 @@ time.sleep(0.5)
 fourcc = cv2.VideoWriter_fourcc(*"mp4v")#'DIVX', *'mp4v', *'X264',  [mp4 +'avc1'] [avi + 'DIVX']
 out = cv2.VideoWriter(final+'/data/webcam_'+num+'.mp4',fourcc,15,(int(width_w*0.3),int(height_w*0.3)),isColor=False)
 out.set(cv2.VIDEOWRITER_PROP_QUALITY,1)
-#out.set(cv2.VIDEOWRITER_PROP_NSTRIPES,2)
 time.sleep(0.5)
 
 # =============================================================================
