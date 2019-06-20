@@ -284,12 +284,13 @@ log.append('Session accepted'+' : '+str(time.time()))
 cap = cv2.VideoCapture(0 + cv2.CAP_DSHOW)
 print('Webcam activated')
 log.append('Webcam activated'+' : '+str(time.time()))
-width_w = 160
-height_w = int(int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))*160/int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)))
+web_width= cap.get(cv2.CAP_PROP_FRAME_WIDTH)
+web_height= cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
+height_w = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))*(160/int(web_width))
 
 time.sleep(0.5)
 fourcc = cv2.VideoWriter_fourcc(*"mp4v")#'DIVX', *'mp4v', *'X264',  [mp4 +'avc1'] [avi + 'DIVX']
-out = cv2.VideoWriter(final+'/data/webcam_'+num+'.mp4',fourcc,15,(width_w,height_w),isColor=False)
+out = cv2.VideoWriter(final+'/data/webcam_'+num+'.mp4',fourcc,15,(160,height_w),isColor=False)
 out.set(cv2.VIDEOWRITER_PROP_QUALITY,1)
 time.sleep(0.5)
 
