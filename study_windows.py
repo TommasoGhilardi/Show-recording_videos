@@ -287,7 +287,7 @@ cap = cv2.VideoCapture(0 + cv2.CAP_DSHOW)
 print('Webcam activated')
 log.append('Webcam activated'+' : '+str(time.time()))
 width_w= 320
-height_w= int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)*160/cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+height_w= int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)*width_w/cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 
 time.sleep(0.5)
 fourcc = cv2.VideoWriter_fourcc(*"mp4v")#'DIVX', *'mp4v', *'X264',  [mp4 +'avc1'] [avi + 'DIVX']
