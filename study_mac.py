@@ -142,13 +142,13 @@ def check_webcam(manager_of_frames):
             frame=cv2.resize(cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY),(320,240),interpolation=cv2.INTER_NEAREST)
             fps_testing= fps_testing+1
         stop_testing=time.time()
-    elif not check.isOpened():
-        manager_of_frames.value=2
-        
         manager_of_frames.value=round(fps_testing/(stop_testing-start_testing))
         print(str(manager_of_frames.value))
         check.release()
         print('Webcam identified')
+        
+    elif not check.isOpened():
+        manager_of_frames.value=2
     return()
 
 def webcam(stopper,fps,path,numm):
@@ -334,7 +334,7 @@ if __name__ == '__main__':
     print('Session accepted')
     log.append('Session accepted'+' : '+str(time.time()))
 
-# =============================================================================
+    # =============================================================================
     #  showing video
     # =============================================================================
     process2.start()
