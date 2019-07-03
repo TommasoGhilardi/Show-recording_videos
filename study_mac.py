@@ -134,7 +134,7 @@ def center(win):
 def check_webcam(manager_of_frames):
     manager_of_frames.value=0
     fps_testing=0
-    check = cv2.VideoCapture(0 + cv2.CAP_DSHOW)
+    check = cv2.VideoCapture(0)
 
     if not check.isOpened():
         manager_of_frames.value=0
