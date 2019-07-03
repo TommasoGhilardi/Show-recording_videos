@@ -132,24 +132,24 @@ def center(win):
     return()
 
 def check_webcam(manager_of_frames):
+    manager_of_frames.value=0
     fps_testing=0
-    check = cv2.VideoCapture(0)
+    check = cv2.VideoCapture(0 + cv2.CAP_DSHOW)
 
-    if check.isOpened():
+    if not check.isOpened():
+        manager_of_frames.value=0
+    else:
         start_testing=time.time()
-        while fps_testing<240:
+        while fps_testing<150:
             ret, frame = check.read()
             frame=cv2.resize(cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY),(320,240),interpolation=cv2.INTER_NEAREST)
             fps_testing= fps_testing+1
         stop_testing=time.time()
+        
         manager_of_frames.value=round(fps_testing/(stop_testing-start_testing))
         print(str(manager_of_frames.value))
         check.release()
         print('Webcam identified')
-        
-    elif not check.isOpened():
-        print('NOT FIND')
-        manager_of_frames.value=2
     return()
 
 def webcam(stopper,fps,path,numm):
@@ -180,7 +180,7 @@ def exit_all():
     
 
 if __name__ == '__main__':
-    multiprocessing.freeze_support()
+    multiprocessing.set_start_method('spawn')
     manager = multiprocessing.Manager()
     
     fps_manager = manager.Value('i', 0)

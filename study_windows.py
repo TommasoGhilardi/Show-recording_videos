@@ -145,7 +145,7 @@ def check_webcam(manager_of_frames):
         manager_of_frames.value=0
     else:
         start_testing=time.time()
-        while fps_testing<240:
+        while fps_testing<150:
             ret, frame = check.read()
             frame=cv2.resize(cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY),(320,240),interpolation=cv2.INTER_NEAREST)
             fps_testing= fps_testing+1
