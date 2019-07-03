@@ -8,10 +8,6 @@ import os , sys, cv2, time, tkinter, PIL.Image, PIL.ImageTk
 import pyglet, multiprocessing
 from os import listdir
 
-pyglet.lib.load_library('avbin')
-pyglet.have_avbin=True
-
-
 # =============================================================================
 # App for webcam feedback
 # =============================================================================
@@ -186,6 +182,10 @@ def exit_all():
 if __name__ == '__main__':
     multiprocessing.freeze_support()
     manager = multiprocessing.Manager()
+    
+    '''pyglet check'''
+    pyglet.lib.load_library('avbin')    
+    pyglet.have_avbin=True
        
     # =============================================================================
     # Waiting window + screen realted info
