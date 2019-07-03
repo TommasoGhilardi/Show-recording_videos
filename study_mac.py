@@ -148,6 +148,7 @@ def check_webcam(manager_of_frames):
         print('Webcam identified')
         
     elif not check.isOpened():
+        print('NOT FIND')
         manager_of_frames.value=2
     return()
 
@@ -181,6 +182,9 @@ def exit_all():
 if __name__ == '__main__':
     multiprocessing.freeze_support()
     manager = multiprocessing.Manager()
+    
+    fps_manager = manager.Value('i', 0)
+    stopper_manager = manager.Value('i',0)
     
     '''pyglet check'''
     pyglet.lib.load_library('avbin')    
@@ -251,8 +255,6 @@ if __name__ == '__main__':
     # =============================================================================
     # Multiprocessing setting
     # =============================================================================
-    fps_manager = manager.Value('i', 0)
-    stopper_manager = manager.Value('i',0)
     
     process1 = multiprocessing.Process(target=check_webcam, args=(fps_manager,)) 
     process2 = multiprocessing.Process(target=webcam, args=(stopper_manager,fps_manager,final,num)) 
