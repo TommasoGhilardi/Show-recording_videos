@@ -180,6 +180,7 @@ def exit_all():
     
 
 if __name__ == '__main__':
+    multiprocessing.freeze_support()
     multiprocessing.set_start_method('spawn')
     manager = multiprocessing.Manager()
     
@@ -255,7 +256,6 @@ if __name__ == '__main__':
     # =============================================================================
     # Multiprocessing setting
     # =============================================================================
-    
     process1 = multiprocessing.Process(target=check_webcam, args=(fps_manager,)) 
     process2 = multiprocessing.Process(target=webcam, args=(stopper_manager,fps_manager,final,num)) 
     
