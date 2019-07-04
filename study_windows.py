@@ -342,6 +342,7 @@ if __name__ == '__main__':
     process2.start()
     print('Webcam activated')
     log.append('Webcam activated'+' : '+str(time.time()))
+    actual_frames=0
         
     pos1,pos2,dim1,dim2=screen_w/2-video_w*rapport/2, screen_h/2-video_h*rapport/2 ,video_w*rapport,video_h*rapport
     window=pyglet.window.Window(fullscreen=True, vsync= True)
@@ -356,9 +357,11 @@ if __name__ == '__main__':
     
     @window.event
     def on_draw():
+        global actual_frames
         window.clear()
         if player.source and player.source.video_format:
             player.get_texture().blit(pos1,pos2, width=dim1, height=dim2)
+            actual_frames=actual_frames+1
             
     def close(event):
         player.delete()
@@ -377,6 +380,11 @@ if __name__ == '__main__':
     log.append('Video start'+' : '+str(start))
     log.append('Video stop'+' : '+str(stop))
     process2.join() #waiting for the closing of process2
+    
+    ''' Real Framerate'''
+    real_fps=round(actual_frames/(stop-start))
+    log.append('Real Fps'+' : '+str(real_fps))
+    print(str(real_fps))
     
     # =============================================================================
     # saving logs
