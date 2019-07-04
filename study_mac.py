@@ -140,7 +140,7 @@ def check_webcam(manager_of_frames):
         manager_of_frames.value=0
     else:
         start_testing=time.time()
-        while fps_testing<150:
+        while fps_testing<200:
             ret, frame = check.read()
             frame=cv2.resize(cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY),(320,240),interpolation=cv2.INTER_NEAREST)
             fps_testing= fps_testing+1
@@ -341,13 +341,12 @@ if __name__ == '__main__':
     process2.start()
     print('Webcam activated')
     log.append('Webcam activated'+' : '+str(time.time()))
-    actual_frames=0
     
     pos1,pos2,dim1,dim2=screen_w/2-video_w*rapport/2, screen_h/2-video_h*rapport/2 ,video_w*rapport,video_h*rapport
     window=pyglet.window.Window(fullscreen=True, vsync= True)
     player=pyglet.media.Player()
     source = pyglet.media.load(showing)
-    source.video_format.frame_rate=30
+    source.video_format.frame_rate=15
     stopper= source.duration-1
     player.queue(source)
     player.play()
@@ -356,11 +355,9 @@ if __name__ == '__main__':
     
     @window.event
     def on_draw():
-        global actual_frames
         window.clear()
         if player.source and player.source.video_format:
             player.get_texture().blit(pos1,pos2, width=dim1, height=dim2)
-            actual_frames=actual_frames+1
             
     def close(event):
         player.delete()
@@ -380,10 +377,7 @@ if __name__ == '__main__':
     log.append('Video stop'+' : '+str(stop))
     process2.join() #waiting for the closing of process2
     
-    ''' Real Framerate'''
-    real_fps=round(actual_frames/(stop-start))
-    log.append('Real Fps'+' : '+str(real_fps))
-    print(str(real_fps))
+
     
     # =============================================================================
     # saving logs
