@@ -153,7 +153,6 @@ def check_webcam(manager_of_frames):
     return()
 
 def webcam(stopper,fps,path,numm):
-    print(str(fps.value))
     cap = cv2.VideoCapture(0)
     width_w= 320
     height_w= int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)*width_w/cap.get(cv2.CAP_PROP_FRAME_WIDTH))
