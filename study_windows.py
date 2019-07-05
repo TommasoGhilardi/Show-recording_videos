@@ -142,13 +142,14 @@ def check_webcam(manager_of_frames):
     check = cv2.VideoCapture(0 + cv2.CAP_DSHOW)
 
     if not check.isOpened():
-        manager_of_frames.value=0
+        manager_of_frames.value=1
     else:
         start_testing=time.time()
-        while fps_testing<200:
+        while fps_testing<400:
             ret, frame = check.read()
             frame=cv2.resize(cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY),(320,240),interpolation=cv2.INTER_NEAREST)
-            fps_testing= fps_testing+1
+            if ret == True:
+                fps_testing= fps_testing+1
         stop_testing=time.time()
         
         manager_of_frames.value=round(fps_testing/(stop_testing-start_testing))
@@ -176,8 +177,8 @@ def webcam(stopper,fps,path,numm):
         elif stopper.value==2:    
             cap.release()
             break
-    return()
-    
+    return()    
+
 def exit_all():
     sys.exit()
     window.destroy()
@@ -280,11 +281,24 @@ if __name__ == '__main__':
     center(window)  #definition that take in account everything and center the window
     window.mainloop()
 
+    # =============================================================================
+    # Waiting for the framerate 
+    # =============================================================================
+    window = tkinter.Tk()
+    window.title("Webcam Problem")
+    problem= '\n    The program is checking the framerate of your webcam.    \n\n\
+    Please wait.\n'
+    tkinter.Label(window, text=problem,font=("Arial Bold", int(screen_w/96)),anchor='center').pack()
+    center(window)  #definition that take in account everything and center the window
+    while fps_manager.value==0:
+        window.update()
+    window.destroy()
+    
     process1.join()
     # =============================================================================
     # Problem webcam
     # =============================================================================
-    if fps_manager.value==0:
+    if fps_manager.value==1:
         window = tkinter.Tk()
         window.title("Webcam Problem")
         problem= '\n    The program is unable to detect a webcam.    \n\
@@ -295,7 +309,6 @@ if __name__ == '__main__':
         window.mainloop()
         sys.exit()
     
-
     log.append('Webcam identification'+' : '+str(time.time())) 
     log.append('Framerate of'+' : '+str(fps_manager.value)+' fps')
     
