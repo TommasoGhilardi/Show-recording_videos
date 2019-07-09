@@ -131,40 +131,38 @@ def center(win):
 #    win.deiconify()
     return()
 
-def check_webcam(manager_of_frames):
-    manager_of_frames.value=0
-    fps_testing=0
+def check_webcam():
     check = cv2.VideoCapture(0)
-
     if not check.isOpened():
-        manager_of_frames.value=1
+        window = tkinter.Tk()
+        window.title("Webcam Problem")
+        problem= '\n    The program is unable to detect a webcam.    \n\
+        Please make sure that your computer or device has access to a webcam and try to start the program again.    \n\n'
+        tkinter.Label(window, text=problem,font=("Arial Bold", int(screen_w/96)),anchor='center').pack()
+        tkinter.Button(window, text="CLOSE the program",font=("Arial Bold",int(screen_w/96)), command=window.destroy, anchor='s').pack()
+        center(window)  #definition that take in account everything and center the window
+        window.mainloop()
+        sys.exit()
     else:
-        start_testing=time.time()
-        while fps_testing<400:
-            ret, frame = check.read()
-            frame=cv2.resize(cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY),(320,240),interpolation=cv2.INTER_NEAREST)
-            if ret ==True:
-                fps_testing= fps_testing+ 1
-        stop_testing=time.time()
-        
-        manager_of_frames.value=round(fps_testing/(stop_testing-start_testing))
-        print(str(manager_of_frames.value))
         check.release()
         print('Webcam identified')
+        log.append('Webcam identified'+' : '+str(time.time()))
+        time.sleep(0.5)
     return()
-
-def webcam(stopper,fps,path,numm):
+    
+def webcam(stopper,path,numm):
     cap = cv2.VideoCapture(0)
-    width_w= 320
-    height_w= int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)*width_w/cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 320)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 240)
+    cap.set(cv2.CAP_PROP_FPS, 15)
+    
     fourcc = cv2.VideoWriter_fourcc(*"mp4v")#'DIVX', *'mp4v', *'X264',  [mp4 +'avc1'] [avi + 'DIVX']
-    out = cv2.VideoWriter(path+'/data/webcam_'+numm+'.mp4',fourcc,fps.value,(width_w,height_w),isColor=False)
+    out = cv2.VideoWriter(path+'/data/webcam_'+numm+'.mp4',fourcc,15,(320,240),isColor=True)
     out.set(cv2.VIDEOWRITER_PROP_QUALITY,1)
     
     while True:
         if stopper.value==1:
             ret, frame = cap.read()
-            frame=cv2.resize(cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY),(width_w,height_w),interpolation=cv2.INTER_NEAREST)
             if ret==True:
                 out.write(frame)
         elif stopper.value==0:
@@ -183,10 +181,7 @@ if __name__ == '__main__':
     multiprocessing.freeze_support()
     multiprocessing.set_start_method('spawn')
     manager = multiprocessing.Manager()
-    
-    fps_manager = manager.Value('i', 0)
-    stopper_manager = manager.Value('i',0)
-    
+        
     '''pyglet check'''
     pyglet.lib.load_library('avbin')    
     pyglet.have_avbin=True
@@ -256,14 +251,13 @@ if __name__ == '__main__':
     # =============================================================================
     # Multiprocessing setting
     # =============================================================================
-    process1 = multiprocessing.Process(target=check_webcam, args=(fps_manager,)) 
-    process2 = multiprocessing.Process(target=webcam, args=(stopper_manager,fps_manager,final,num)) 
+    stopper_manager = manager.Value('i',0)
+
+    process1 = multiprocessing.Process(target=webcam, args=(stopper_manager,final,num)) 
     
     # =============================================================================
     # Welcome window
-    # =============================================================================
-    process1.start()
-        
+    # =============================================================================        
     window = tkinter.Tk()
     window.title("Welcome")
     thank = tkinter.Label(window, text='\nThank you for participating in this study.\n',font=("Arial Bold", int(screen_w/80)),anchor='n').pack()
@@ -282,36 +276,8 @@ if __name__ == '__main__':
     center(window)  #definition that take in account everything and center the window
     window.mainloop()
     
-    # =============================================================================
-    # Waiting for the framerate 
-    # =============================================================================
-    window = tkinter.Tk()
-    window.title("Webcam Problem")
-    problem= '\n    The program is checking the framerate of your webcam.    \n\n\
-    Please wait.\n'
-    tkinter.Label(window, text=problem,font=("Arial Bold", int(screen_w/96)),anchor='center').pack()
-    center(window)  #definition that take in account everything and center the window
-    while fps_manager.value==0:
-        window.update()
-    window.destroy()
-    
-    process1.join()
-    # =============================================================================
-    # Problem webcam
-    # =============================================================================
-    if fps_manager.value==1:
-        window = tkinter.Tk()
-        window.title("Webcam Problem")
-        problem= '\n    The program is unable to detect a webcam.    \n\
-        Please make sure that your computer or device has access to a webcam and try to start the program again    \n\n'
-        tkinter.Label(window, text=problem,font=("Arial Bold", int(screen_w/96)),anchor='center').pack()
-        tkinter.Button(window, text="CLOSE the program",font=("Arial Bold",int(screen_w/96)), command=window.destroy, anchor='s').pack()
-        center(window)  #definition that take in account everything and center the window
-        window.mainloop()
-        sys.exit()
- 
-    log.append('Webcam identification'+' : '+str(time.time())) 
-    log.append('Framerate of'+' : '+str(fps_manager.value)+' fps')
+    '''checking the webcam'''
+    check_webcam()
         
     # =============================================================================
     # Ready window
@@ -351,7 +317,7 @@ if __name__ == '__main__':
     # =============================================================================
     #  showing video
     # =============================================================================
-    process2.start()
+    process1.start()
     print('Webcam activated')
     log.append('Webcam activated'+' : '+str(time.time()))
     
@@ -388,9 +354,7 @@ if __name__ == '__main__':
     log.append('Webcam stoppped'+' : '+str(stop))
     log.append('Video start'+' : '+str(start))
     log.append('Video stop'+' : '+str(stop))
-    process2.join() #waiting for the closing of process2
-    
-
+    process1.join() #waiting for the closing of process1
     
     # =============================================================================
     # saving logs
