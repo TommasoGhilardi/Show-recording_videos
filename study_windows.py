@@ -145,7 +145,7 @@ def check_webcam(manager_of_frames):
         manager_of_frames.value=1
     else:
         start_testing=time.time()
-        while fps_testing<600:
+        while fps_testing<500:
             ret, frame = check.read()
             frame=cv2.resize(cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY),(320,240),interpolation=cv2.INTER_NEAREST)
             if ret == True:
@@ -263,6 +263,8 @@ if __name__ == '__main__':
     # Welcome window
     # =============================================================================
     process1.start()
+    time.sleep(2)
+    
     window = tkinter.Tk()
     window.title("Welcome")
     thank = tkinter.Label(window, text='\nThank you for participating in this study.\n',font=("Arial Bold", int(screen_w/80)),anchor='n').pack()
@@ -332,7 +334,7 @@ if __name__ == '__main__':
     # Last Chance
     # =============================================================================
     window = tkinter.Tk()
-    window.title("Ready")  
+    window.title("Ready")
     
     readyness='\nPressing the START button will start the video session.\n\
     The session will last around 12 minutes.\n\n\
@@ -354,7 +356,7 @@ if __name__ == '__main__':
     process2.start()
     print('Webcam activated')
     log.append('Webcam activated'+' : '+str(time.time()))
-    actual_frames=0
+    time.sleep(1)
         
     pos1,pos2,dim1,dim2=screen_w/2-video_w*rapport/2, screen_h/2-video_h*rapport/2 ,video_w*rapport,video_h*rapport
     window=pyglet.window.Window(fullscreen=True, vsync= True)
