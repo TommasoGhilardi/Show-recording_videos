@@ -388,9 +388,10 @@ if __name__ == '__main__':
     
     '''closing video'''
     window.close(), player.delete(), source.delete(),pyglet.app.exit()
-    log.append('Webcam stoppped'+' : '+str(stop))
-    log.append('Video start'+' : '+str(start))
-    log.append('Video stop'+' : '+str(stop))
+    log.append('Video start : '+str(start))
+    log.append('Video stop : '+str(stop))
+    minutes,seconds=divmod(stop-start,60)
+    log.append('Duration : '+str(int(minutes))+':'+str(seconds))
     process2.join() #waiting for the closing of process2
     
     # =============================================================================
