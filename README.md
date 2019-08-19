@@ -1,4 +1,4 @@
-# webcam_video_exe
+# Standalone webcam/video tkinter
 standalone app for show a video while recording webcam
 
 Command to create the standalone app:
