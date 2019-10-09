@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu Feb  7 14:24:12 2019
+Created on Thu Aug 15 13:12:40 2019
 
 @author: Tommaso Ghilardi
-""" 
+"""
 import os , sys, cv2, time, tkinter, PIL.Image, PIL.ImageTk
 import pyglet, multiprocessing
 from os import listdir
+from pyglet.window import key
 
 # =============================================================================
 # App for webcam feedback
@@ -90,8 +91,9 @@ class MyVideoCapture:
             self.vid.release()
 
 # =============================================================================
-# Funcitons
+# Functions
 # =============================================================================
+
 def find_folder():
     """find the path where the script is"""
     folder_path=os.path.dirname(os.path.realpath(sys.argv[0]))
@@ -135,27 +137,36 @@ def center(win):
     win.geometry('{}x{}+{}+{}'.format(width, height, x, y))
     win.deiconify()
     return()
-
-def check_webcam(manager_of_frames):
+    
+def check_webcam(manager_of_frames,path,numm):
     manager_of_frames.value=0
     fps_testing=0
     check = cv2.VideoCapture(0 + cv2.CAP_DSHOW)
+    
+    width_w= 320
+    height_w= int(check.get(cv2.CAP_PROP_FRAME_HEIGHT)*width_w/check.get(cv2.CAP_PROP_FRAME_WIDTH))
+    fourcc = cv2.VideoWriter_fourcc(*"mp4v")#'DIVX', *'mp4v', *'X264',  [mp4 +'avc1'] [avi + 'DIVX']
+    out = cv2.VideoWriter(path+'\\data\\try.mp4',fourcc,20,(width_w,height_w))
+    out.set(cv2.VIDEOWRITER_PROP_QUALITY,50)
 
     if not check.isOpened():
         manager_of_frames.value=1
     else:
         start_testing=time.time()
-        while fps_testing<500:
+        while fps_testing<200:
             ret, frame = check.read()
-            frame=cv2.resize(cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY),(320,240),interpolation=cv2.INTER_NEAREST)
+            frame=cv2.resize(frame,(width_w,height_w),interpolation=cv2.INTER_NEAREST)
             if ret == True:
+                out.write(frame)
                 fps_testing= fps_testing+1
         stop_testing=time.time()
         
         manager_of_frames.value=round(fps_testing/(stop_testing-start_testing))
         print(str(manager_of_frames.value))
         check.release()
+        out.release()
         print('Webcam identified')
+    os.remove(path+'\\data\\try.mp4')
     return()
 
 def webcam(stopper,fps,path,numm):
@@ -163,26 +174,34 @@ def webcam(stopper,fps,path,numm):
     width_w= 320
     height_w= int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)*width_w/cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     fourcc = cv2.VideoWriter_fourcc(*"mp4v")#'DIVX', *'mp4v', *'X264',  [mp4 +'avc1'] [avi + 'DIVX']
-    out = cv2.VideoWriter(path+'/data/webcam_'+numm+'.mp4',fourcc,fps.value,(width_w,height_w),isColor=False)
-    out.set(cv2.VIDEOWRITER_PROP_QUALITY,1)
+    out = cv2.VideoWriter(path+'\\data\\webcam_'+numm+'.mp4',fourcc,fps.value,(width_w,height_w),isColor=True)
+    out.set(cv2.VIDEOWRITER_PROP_QUALITY,50)
     
     while True:
-        if stopper.value==1:
+        if stopper.value > 1:
             ret, frame = cap.read()
-            frame=cv2.resize(cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY),(width_w,height_w),interpolation=cv2.INTER_NEAREST)
+            frame=cv2.resize(frame,(width_w,height_w),interpolation=cv2.INTER_NEAREST)
             if ret==True:
+                if stopper.value==3:
+                    frame[:, :, 0] = 0  #blue
+                    frame[:, :, 1] = 0  #green
                 out.write(frame)
+        
         elif stopper.value==0:
             continue
-        elif stopper.value==2:    
+        elif stopper.value==1:    
             cap.release()
+            out.release()
             break
     return()    
 
 def exit_all():
     sys.exit()
     window.destroy()
-    
+
+# =============================================================================
+# Main
+# =============================================================================
 if __name__ == '__main__':
     multiprocessing.freeze_support()
     manager = multiprocessing.Manager()
@@ -250,15 +269,16 @@ if __name__ == '__main__':
     log.append('Identified session'+' : '+str(time.time()))
     print('Identified session')
 
+    
     # =============================================================================
     # Multiprocessing setting
     # =============================================================================
     fps_manager = manager.Value('i', 0)
     stopper_manager = manager.Value('i',0)
     
-    process1 = multiprocessing.Process(target=check_webcam, args=(fps_manager,)) 
+    process1 = multiprocessing.Process(target=check_webcam, args=(fps_manager,final,num)) 
     process2 = multiprocessing.Process(target=webcam, args=(stopper_manager,fps_manager,final,num)) 
-    
+
     # =============================================================================
     # Welcome window
     # =============================================================================
@@ -297,6 +317,7 @@ if __name__ == '__main__':
     window.destroy()
     
     process1.join()
+    
     # =============================================================================
     # Problem webcam
     # =============================================================================
@@ -314,7 +335,7 @@ if __name__ == '__main__':
     log.append('Webcam identification'+' : '+str(time.time())) 
     log.append('Framerate of'+' : '+str(fps_manager.value)+' fps')
     
-    # =============================================================================
+   # =============================================================================
     # Ready window
     # =============================================================================
     window = tkinter.Tk()
@@ -363,10 +384,9 @@ if __name__ == '__main__':
     player=pyglet.media.Player()
     source = pyglet.media.load(showing)
     source.video_format.frame_rate=15
-    stopper= source.duration-1
     player.queue(source)
     player.play()
-    stopper_manager.value=1
+    stopper_manager.value=2
     start=time.time() #timestemp of start
     
     @window.event
@@ -375,16 +395,39 @@ if __name__ == '__main__':
         if player.source and player.source.video_format:
             player.get_texture().blit(pos1,pos2, width=dim1, height=dim2)
             
-    def close(event):
+    @window.event
+    def on_key_press(a,b):       
+        if a == key.SPACE:
+            if player.playing==True:
+                player.pause()
+                stopper_manager.value=3
+                print('pause')
+            elif player.playing==False:
+                player.play()
+                stopper_manager.value=2
+                print('run')
+    
+    @window.event
+    def on_close():
         player.delete()
         window.close()
         source.delete()
         pyglet.app.exit()
-    
-    pyglet.clock.schedule_once(close,stopper)
+        pyglet.app.exit()
+        print('close')
+        
+    @player.event
+    def on_eos():
+        player.delete()
+        window.close()
+        source.delete()
+        pyglet.app.exit()
+        pyglet.app.exit()
+        print('eos')
+        
     pyglet.app.run()
     stop=time.time() #timestemp of stop
-    stopper_manager.value=2
+    stopper_manager.value=1
     
     '''closing video'''
     window.close(), player.delete(), source.delete(),pyglet.app.exit()
