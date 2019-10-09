@@ -153,7 +153,7 @@ def check_webcam(manager_of_frames,path,numm):
         manager_of_frames.value=1
     else:
         start_testing=time.time()
-        while fps_testing<200:
+        while fps_testing<150:
             ret, frame = check.read()
             frame=cv2.resize(frame,(width_w,height_w),interpolation=cv2.INTER_NEAREST)
             if ret == True:
@@ -171,22 +171,38 @@ def check_webcam(manager_of_frames,path,numm):
 
 def webcam(stopper,fps,path,numm):
     cap = cv2.VideoCapture(0 + cv2.CAP_DSHOW)
+    # Timeout to display frames in seconds FPS = 1/TIMEOUT 
+    print(fps.value>16)
+    if fps.value >20:
+        fps_out = 20
+    if 15< fps.value <=20:    
+        fps_out = 15            #15 fps
+    elif 10< fps.value <=15:
+        fps_out = 10          #10 fps
+    elif fps.value <= 10:
+        fps_out = 5             #5 fps
+    TIMEOUT= 1/fps_out
+    
+    """Saving video settings"""
     width_w= 320
     height_w= int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)*width_w/cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     fourcc = cv2.VideoWriter_fourcc(*"mp4v")#'DIVX', *'mp4v', *'X264',  [mp4 +'avc1'] [avi + 'DIVX']
-    out = cv2.VideoWriter(path+'\\data\\webcam_'+numm+'.mp4',fourcc,fps.value,(width_w,height_w),isColor=True)
-    out.set(cv2.VIDEOWRITER_PROP_QUALITY,50)
+    out = cv2.VideoWriter(path+'\\data\\webcam_'+numm+'.mp4',fourcc,fps_out,(width_w,height_w),isColor=True)
+    out.set(cv2.VIDEOWRITER_PROP_QUALITY,80)
+    
+    old_timestamp = time.time()
     
     while True:
         if stopper.value > 1:
-            ret, frame = cap.read()
-            frame=cv2.resize(frame,(width_w,height_w),interpolation=cv2.INTER_NEAREST)
-            if ret==True:
+            if (time.time() - old_timestamp) > TIMEOUT:
+                ret, frame = cap.read()
+                frame=cv2.resize(frame,(width_w,height_w),interpolation=cv2.INTER_NEAREST)
                 if stopper.value==3:
                     frame[:, :, 0] = 0  #blue
                     frame[:, :, 1] = 0  #green
                 out.write(frame)
-        
+                old_timestamp = time.time()
+            
         elif stopper.value==0:
             continue
         elif stopper.value==1:    
