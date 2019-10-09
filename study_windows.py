@@ -5,8 +5,6 @@ Created on Thu Feb  7 14:24:12 2019
 @author: Tommaso Ghilardi
 """ 
 import os , sys, cv2, time, tkinter, PIL.Image, PIL.ImageTk
-
-
 import pyglet, multiprocessing
 from os import listdir
 
