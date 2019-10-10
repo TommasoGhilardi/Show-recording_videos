@@ -285,7 +285,6 @@ if __name__ == '__main__':
     log.append('Identified session'+' : '+str(time.time()))
     print('Identified session')
 
-    
     # =============================================================================
     # Multiprocessing setting
     # =============================================================================
