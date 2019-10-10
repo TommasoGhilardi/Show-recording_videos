@@ -8,3 +8,7 @@ The program utilize:
 - tkinter to display messages
 
 The program requires [FFMPEG](https://www.ffmpeg.org/download.html)
+
+
+Included the icon (both for Windows and Mac)
+![alt text](https://raw.githubusercontent.com/ghila93/Show-recording_videos/master/smile.ico)
