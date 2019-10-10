@@ -1,8 +1,8 @@
-# Standalone webcam/video tkinter
-standalone app for show a video while recording webcam
+# Script that displays a video while collecting a feedback from the webcam
+The script was created for an EEG training experiment.
+In this experiment infants had to watch 3 videos at home. The script was created to be tranformed in an executable for Windows and Mac using pyinstaller.
 
-Command to create the standalone app:
-
-pyinstaller  --onefile --icon=C:\Users\u262192\Documents\EXP\smile.ico --add-data C:\Users\u262192\AppData\Roaming\pyinstaller\bincache00_py37_64bit\avbin.dll;. --add-data C:\Users\u262192\AppData\Roaming\pyinstaller\bincache00_py37_64bit\avbin64.dll;. windows.py  
-
-pyinstaller  --onefile --icon=C:\Users\u262192\Documents\EXP\smile.icns mac.py  
+The program utilize:
+- pyglet to display the videos
+- cv2 to collect the video from the webcam
+- tkinter to display messages
