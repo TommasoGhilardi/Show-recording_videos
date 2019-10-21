@@ -251,9 +251,8 @@ if __name__ == '__main__':
     rapport = screen_h/video_h
         
     # =============================================================================
-    # Main
+    # Folder and Videos
     # =============================================================================
-
     final = find_folder() #find the folder where the script is in
     SET = [s for s in listdir(final) if 'set' in s][0]
     log.insert(0,'The training set is: '+SET+'\n')
