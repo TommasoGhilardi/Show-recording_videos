@@ -2,7 +2,7 @@
 The script was created for an EEG training experiment.
 In this experiment infants had to watch 3 videos at home. The script was created to be tranformed in an executable for Windows and Mac using pyinstaller.
 
-The program will look for "data" (where the webcam recordings will be stored) and "set" (where the videos to display are stored) folder.
+The program will look for "data" (where the webcam recordings will be stored) and "set" (where the videos to display are stored) folders.
 
 The program utilize:
 - pyglet to display the videos
