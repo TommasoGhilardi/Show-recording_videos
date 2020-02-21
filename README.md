@@ -11,7 +11,7 @@ The program utilize:
 The program requires [FFMPEG](https://www.ffmpeg.org/download.html)
 
 
-Included the icon (both for Windows and Mac)
+Included the icons (both for Windows and Mac)
 
 ![smile](https://user-images.githubusercontent.com/38372956/66559387-9c631f00-eb55-11e9-8d79-547684e4226f.png)
 
