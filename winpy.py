@@ -13,7 +13,7 @@ from os import listdir
 # =============================================================================
 def messages(disp_text,handler,stopper):
     
-    # Handler 0: SPACE close the window and ESCAPE do nothing
+    # Handler 0: SPACE close the window and ESCAPE do nothing 
     # Handler 1: SPACE close the window and ESCAPE close the program
     # Handler 2: SPACE and ESCAPE do nothing (waiting for stopper seconds)
     # Handler 3: Press a button between 1 and 9
