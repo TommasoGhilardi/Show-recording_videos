@@ -5,9 +5,8 @@ In this experiment infants had to watch 3 videos at home. The script was created
 The program will look for "data" (where the webcam recordings will be stored) and "set" (where the videos to display are stored) folders.
 
 The program utilize:
-- pyglet to display the videos
+- pyglet to display the videos and the text messages
 - cv2 to collect the video from the webcam
-- tkinter to display messages
 
 The program requires [FFMPEG](https://www.ffmpeg.org/download.html)
 
