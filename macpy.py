@@ -46,7 +46,6 @@ def messages(disp_text,handler,stopper):
     
     def update(dt):
         return()
-        
     pyglet.clock.schedule_interval(update, 0.01)
     
     @window.event
