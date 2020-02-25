@@ -226,9 +226,9 @@ def findinpath(pathh):
         print('Videos identified')
         log.append('Video identified'+' : '+str(time.time()))
     else:
-        problem= 'The program is unable to detect the media files.\n\n\
-        If you have modified or moved any file on the USB drive, please restore the original state of the USB drive.\n\
-        If unable to restore the original state, please contact the researcher by following the provided instruction.\n'
+        problem= 'Het programma kan de media bestanden niet vinden.\n\n\
+            Als u een bestand hebt aangepast of verwijderd van de USB-stick, probeer dan astublieft de bestanden te herstellen in de originele staat op de USB-stick.\n\
+            dit niet mogelijk is, contacteer dan astublieft de onderzoeker door de voorziene instructies te volgen.\n'
         messages(problem,2,8)
         sys.exit()
     return(Video0,Video1,Video2)
@@ -256,7 +256,7 @@ if __name__ == '__main__':
     screen_w = pyglet.canvas.get_display().get_screens()[0].width
     screen_h= pyglet.canvas.get_display().get_screens()[0].height
     
-    excuses='\n\nWelcome and thank you for participating in this study'
+    excuses='\n\nWelkom en bedankt voor uw deelname aan dit onderzoek'
     messages(excuses,2,3)
     
     # Get time and date
@@ -286,8 +286,8 @@ if __name__ == '__main__':
         showing=video2
         num='2'
     else:      
-        thanks='\n\nIt seems that you have already partecipated to all three sessions\n\n\
-            Thank for your time!!'+'\n'
+        thanks='\n\nHet lijkt erop dat u alle sessies al heeft afgerond\n\n\
+            Bedankt voor uw tijd!\n'
         messages(thanks,2,6)
         sys.exit()
     
@@ -308,22 +308,22 @@ if __name__ == '__main__':
     # =============================================================================
     process1.start()
     time.sleep(1)
-    instructions= '\nThank you for participating in this study.\n This study is divided into two phases: the training phase and the testing phase.\n\n \
-    The training phase will take place during the three days before the test phase.\n \
-    During this period we ask you to watch three videos (one each day) using this program.\n \
-    In each session a video will be displayed on your screen, while a feedback from the webcam will be recorded.\n\n\
-    The program will not install anything on your device and the videos will only be saved on the encrypted USB drive:   \n\
-    you will have complete control over them.\n\n\
-    Please remember to bring the USB drive to the test phase.\n\
-    The videos will be analyzed in order to evaluate the level of attention paid to the stimuli.\n\n \
-    When you are ready, press the SPACEBAR to progress with the session.\n'
+    instructions= "\nBedankt voor uw deelname aan dit onderzoek.\n Dit onderzoek is verdeeld in twee gedeelten: het trainingsgedeelte en het testgedeelte.\n\n\
+    Het oefengedeelte zal in de drie dagen voor het testgedeelte plaatsvinden.\n\
+    Tijdens dit gedeelte vragen we u om samen met uw kind drie video's (één voor iedere dag) te kijken met dit programma.\n\
+    In iedere sessie zal er een video verschijnen op uw scherm en tegelijkertijd zal het gedrag van uw kind worden opgenomen via de webcam.\n\n\
+    Het programma installeert niets op uw device en het opgenomen materiaal zal alleen worden opgeslagen op de versleutelde USB-stick,\n\
+    u heeft de volledige controle hierover.\n\n\
+    Vergeet astublieft niet de USB-stick mee te nemen naar het testgedeelte.\n\
+    De video's zullen worden geanalyseerd om te kijken of uw kind genoeg aandacht toonde voor de stimuli.\n\n \
+    Als u er klaar voor bent, kunt de SPATIEBALK indrukken om door te gaan naar de sessie.\n"
     messages(instructions,1,0)
 
     # =============================================================================
     # Waiting for the framerate 
     # =============================================================================
-    waiting = '\n\nThe program is checking the framerate of your webcam.\n\n\
-        Please wait.'
+    waiting = '\n\Het programma is de kwaliteit van uw webcam aan het meten.\n\n\
+	Een moment geduld astublieft.'
     messages(waiting,2,5)
 
     process1.join()
@@ -332,8 +332,8 @@ if __name__ == '__main__':
     # Problem webcam
     # =============================================================================
     if fps_manager.value==1:
-        problem='The program is unable to detect a webcam.\n\
-        Please make sure that your computer or device has access to a webcam and try to start the program again.'
+        problem='\n\nHet programma kan geen webcam detecteren.\n\
+            Zorg er alstublieft voor dat uw device toegang heeft tot een webcam en start het programma opnieuw op.'
         messages(problem,2,4)
         sys.exit()
     
@@ -343,9 +343,9 @@ if __name__ == '__main__':
    # =============================================================================
     # Ready window
     # =============================================================================
-    position='\nPressing the SPACEBAR will display a video feedback from your webcam.\n\
-    Try to position yourself in front of the webcam in order  to frame your face as accurately as possible.\n\
-    When satisfied with the framing plese press the SPACEBAR to continue.'
+    position='\nAls u de SPATIEBALK indrukt, zal er een video feedback van uw webcam verschijnen.\n\
+    Probeer uw kind in het midden van de webcam te plaatsen zodat het gezichtje duidelijk in beeld is.\n\
+    Als u tevreden bent met de positie, druk dan de SPATIEBALK in om door te gaan.'
     messages(position,0,0)
     Webcam_feedback()
     print('Image checked on webcam')
@@ -354,11 +354,11 @@ if __name__ == '__main__':
     # =============================================================================
     # Last Chance
     # =============================================================================
-    readyness='\nPressing the SPACEBAR will start the video session.\n\
-    The session will last around 12 minutes.\n\n\
-    If you are not ready or you prefer to start the session later,\n please click ESCAPE and the program will close.\n\n\
-    If you decide to proceed please click the SPACEBAR button. We ask you to try to watch the entire session.   \n\n\
-    If for any reason you decide to interrupt the session please press the ESC key.'
+    readyness='\nAls u de spatiebalk indrukt zal de eerste video beginnen.\n\
+    De sessie zal ongeveer twaalf minuten duren.\n\n\
+    Als u er niet klaar voor bent of als u de sessie later wilt beginnen\n  drukt u nu op ESC en het programma zal dan sluiten.\n\n\
+    Als u door wilt gaan, druk dan op de SPATIEBALK. We vragen u om uw kind de sessie helemaal af te laten kijken.\n\n\
+    Als u om welke reden dan ook de sessie wil onderbreken, druk dan op de ESC toets.'
     messages(readyness,1,0)
     print('Session accepted')
     log.append('Session accepted'+' : '+str(time.time()))
@@ -418,10 +418,10 @@ if __name__ == '__main__':
     # =============================================================================
     # Rating Infant  
     # =============================================================================
-    rating_text='\nPlease rate the attention of the child to the video.\n\n\
-        Press a numeric button between 1 and 9 where:\n\n\
-            1 means the infant paid no attention to the video\n\
-                9 means the infant paid attettion to the whole video'
+    rating_text='\nBeoordeel alstublieft of uw kind oplette tijdens de video.\n\n\
+        Druk op een toets met een cijfer tussen 1 en 9.\n\n\
+            1 betekent dat uw kind niet oplette tijdens de video\n\n\
+                9 betekent dat uw kind oplette gedurende de gehele video'
     messages(rating_text,3,0)
     log.append('Infant attention rated as : '+rating)
     print(rating)
@@ -439,11 +439,11 @@ if __name__ == '__main__':
     # BYBY
     # =============================================================================
     if num =='0':
-        byby='\n\nThe first session is now finished.\n    Please remeber to watch the second video tomorrow.    \n\n    Thank you for your participation!    \n'
+        byby='\n\nDe eerste sessie is nu afgelopen.\n    Vergeet astublieft niet om morgen de tweede video te kijken.    \n\n    Bedankt voor uw deelname!    \n'
     elif num=='1':
-        byby='\n\nThe second session is now finished.\n    Please remeber to watch the third video tomorrow.    \n\n    Thank you for your participation!    \n'
+        byby='\n\nDe tweede sessie is nu afgelopen.\n    Vergeet astublieft niet om morgen de derde video te kijken.    \n\n    Bedankt voor uw deelname!    \n'
     elif num=='2':
-        byby='\n\nYou completed all three sessions.\n    Please remember your appointment for the EEG session.    \n\n    Thank you for your participation!    \n'
+        byby='\n\nHet trainingsgedeelte is nu afgelopen.\n    Vergeet astublieft niet uw afspraak voor de EEG scan.    \n\n    Bedankt voor uw deelname!    \n'
     
     messages(byby,2,4)
     sys.exit()
