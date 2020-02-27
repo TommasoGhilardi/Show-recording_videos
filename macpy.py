@@ -212,7 +212,7 @@ def webcam(stopper,fps,path,numm):
 # ============================================================================= 
 def find_folder():
     """find the path where the script is"""
-    folder_path=os.path.dirname(os.path.realpath(sys.argv[0]))
+    folder_path=os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(sys.argv[0])))))
     log.append('Detected folder path'+' : '+str(time.time()))
     print('Detected folder path')
     return(folder_path)
