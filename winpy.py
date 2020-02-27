@@ -34,15 +34,15 @@ def messages(disp_text,handler,stopper):
         document = pyglet.text.document.FormattedDocument()
         batch = pyglet.graphics.Batch()
 
-        document.insert_text(0, disp_text, attributes=dict(font_name='Times New Roman', font_size=Size_font, align='center',
+        document.insert_text(0, disp_text, attributes=dict(font_name="Times New Roman", font_size=Size_font, align="center",
                                                               margin_top=Size_font*0.8, margin_bottom=Size_font*0.8, 
                                                               margin_right=Size_font*0.6, margin_left=Size_font*0.6,
                                                               line_spacing=Size_font*0.8, leading=Size_font*0.5,
                                                               wrap=True, color=(255, 255, 255, 255)))
         disp=pyglet.text.layout.TextLayout(document, width=int(w*0.8), height=int(h*0.75),
-                                               multiline=True, wrap_lines='yes', batch=batch)
+                                               multiline=True, wrap_lines="yes", batch=batch)
 
-    window = pyglet.window.Window(int(w*0.8),int(h*0.75),resizable=False,visible = True,style='borderless' )
+    window = pyglet.window.Window(int(w*0.8),int(h*0.75),resizable=False,visible = True,style="borderless" )
     window.set_location(int(w/2-int(w*0.8)/2),100)
     
     def update(dt):
@@ -97,13 +97,13 @@ def Webcam_feedback():
     ret,frame=cap.read()
     
     def cv2glet(img):
-        '''Assumes image is in BGR color space. Returns a pyimg object'''
+        """Assumes image is in BGR color space. Returns a pyimg object"""
         rows, cols, channels = img.shape
         raw_img = PIL.Image.fromarray(img).tobytes()
         
         top_to_bottom_flag = -1
         bytes_per_row = channels*cols
-        pyimg = pyglet.image.ImageData(width=cols, height=rows, format='BGR', data=raw_img, 
+        pyimg = pyglet.image.ImageData(width=cols, height=rows, format="BGR", data=raw_img, 
                                        pitch=top_to_bottom_flag*bytes_per_row)
         return(pyimg)
     
@@ -115,7 +115,7 @@ def Webcam_feedback():
     """screen dimension"""
     w = pyglet.canvas.get_display().get_screens()[0].width
     
-    window=pyglet.window.Window(pimg.width,pimg.height, vsync= True,style='borderless')
+    window=pyglet.window.Window(pimg.width,pimg.height, vsync= True,style="borderless")
     window.set_location(int(w/2-pimg.width/2),0)
     pyglet.clock.schedule_interval(update, 0.01)
        
@@ -148,8 +148,8 @@ def check_webcam(manager_of_frames,path,numm):
     else:
         width_w= 320
         height_w= int(check.get(cv2.CAP_PROP_FRAME_HEIGHT)*width_w/check.get(cv2.CAP_PROP_FRAME_WIDTH))
-        fourcc = cv2.VideoWriter_fourcc(*"mp4v")#'DIVX', *'mp4v', *'X264',  [mp4 +'avc1'] [avi + 'DIVX']
-        out = cv2.VideoWriter(path+'\\data\\try.mp4',fourcc,20,(width_w,height_w))
+        fourcc = cv2.VideoWriter_fourcc(*"mp4v")#"DIVX", *"mp4v", *"X264",  [mp4 +"avc1"] [avi + "DIVX"]
+        out = cv2.VideoWriter(path+"\\data\\try.mp4",fourcc,20,(width_w,height_w))
         out.set(cv2.VIDEOWRITER_PROP_QUALITY,50)
         
         start_testing=time.time()
@@ -165,8 +165,8 @@ def check_webcam(manager_of_frames,path,numm):
         print(str(manager_of_frames.value))
         check.release()
         out.release()
-        print('Webcam identified')
-        os.remove(path+'\\data\\try.mp4')
+        print("Webcam identified")
+        os.remove(path+"\\data\\try.mp4")
     return()
 
 def webcam(stopper,fps,path,numm):
@@ -186,8 +186,8 @@ def webcam(stopper,fps,path,numm):
     """Saving video settings"""
     width_w= 320
     height_w= int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)*width_w/cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-    fourcc = cv2.VideoWriter_fourcc(*"mp4v")#'DIVX', *'mp4v', *'X264',  [mp4 +'avc1'] [avi + 'DIVX']
-    out = cv2.VideoWriter(path+'\\data\\webcam_'+numm+'.mp4',fourcc,fps_out,(width_w,height_w),isColor=True)
+    fourcc = cv2.VideoWriter_fourcc(*"mp4v")#"DIVX", *"mp4v", *"X264",  [mp4 +"avc1"] [avi + "DIVX"]
+    out = cv2.VideoWriter(path+"\\data\\webcam_"+numm+".mp4",fourcc,fps_out,(width_w,height_w),isColor=True)
     out.set(cv2.VIDEOWRITER_PROP_QUALITY,80)
     
     old_timestamp = time.time()
@@ -214,22 +214,22 @@ def webcam(stopper,fps,path,numm):
 def find_folder():
     """find the path where the script is"""
     folder_path=os.path.dirname(os.path.realpath(sys.argv[0]))
-    log.append('Detected folder path'+' : '+str(time.time()))
-    print('Detected folder path')
+    log.append("Detected folder path"+" : "+str(time.time()))
+    print("Detected folder path")
     return(folder_path)
 
 def findinpath(pathh):
     """what video should be played"""   
-    videos_check = 'video0.mp4', 'video1.mp4', 'video2.mp4'
+    videos_check = "video0.mp4", "video1.mp4", "video2.mp4"
     if set(videos_check)<= set(listdir(pathh)):
-        Video0,Video1,Video2 =pathh+'\\'+'video0.mp4',pathh+'\\'+'video1.mp4',pathh+'\\'+'video2.mp4'
-        print('Videos identified')
-        log.append('Video identified'+' : '+str(time.time()))
+        Video0,Video1,Video2 =pathh+"\\"+"video0.mp4",pathh+"\\"+"video1.mp4",pathh+"\\"+"video2.mp4"
+        print("Videos identified")
+        log.append("Video identified"+" : "+str(time.time()))
     else:
-        problem= 'Het programma kan de media bestanden niet vinden.\n\n\
-            Als u een bestand hebt aangepast of verwijderd van de USB-stick, probeer dan astublieft de bestanden te herstellen in de originele staat op de USB-stick.\n\
-            dit niet mogelijk is, contacteer dan astublieft de onderzoeker door de voorziene instructies te volgen.\n'
-        messages(problem,2,8)
+        problem_media="Het programma kan de media bestanden niet vinden.\n\n\
+        Als u een bestand hebt aangepast of verwijderd van de USB-stick, probeer dan alstublieft de bestanden te herstellen in de originele staat op de USB-stick.\n\
+        Als dit niet mogelijk is, contacteer dan alstublieft de onderzoeker door de voorziene instructies te volgen.\n"
+        messages(problem_media,2,8)
         sys.exit()
     return(Video0,Video1,Video2)
    
@@ -240,27 +240,27 @@ def exit_all():
 # =============================================================================
 # Main
 # =============================================================================
-if __name__ == '__main__':
+if __name__ == "__main__":
     multiprocessing.freeze_support()
     manager = multiprocessing.Manager()
     
-    # pyglet.options['search_local_libs'] = True
-    print('The system has FFMEPG = ' + str(pyglet.media.have_ffmpeg()))
+    # pyglet.options["search_local_libs"] = True
+    print("The system has FFMEPG = " + str(pyglet.media.have_ffmpeg()))
 
     # =============================================================================
     # Waiting window + screen realted info
     # =============================================================================
     log=list() #logfile to store informations
-    rating= 'null' #rating of the infant attention
+    rating= "null" #rating of the infant attention
     
     screen_w = pyglet.canvas.get_display().get_screens()[0].width
     screen_h= pyglet.canvas.get_display().get_screens()[0].height
     
-    excuses='\n\nWelkom en bedankt voor uw deelname aan dit onderzoek'
+    excuses="\n\nWelkom en bedankt voor uw deelname aan dit onderzoek"
     messages(excuses,2,3)
     
     # Get time and date
-    log.append('Video watched on'+' : '+time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()))
+    log.append("Video watched on"+" : "+time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()))
     
     video_w, video_h=1440,1080
     rapport = screen_h/video_h
@@ -269,36 +269,36 @@ if __name__ == '__main__':
     # Main
     # =============================================================================
     final = find_folder() #find the folder where the script is in    
-    SET = [s for s in listdir(final) if 'set' in s][0]
-    log.insert(0,'The training set is: '+SET+'\n')
-    video0,video1,video2= findinpath(final+'\\'+SET)  #selecting the videos in the folders
+    SET = [s for s in listdir(final) if "set" in s][0]
+    log.insert(0,"The training set is: "+SET+"\n")
+    video0,video1,video2= findinpath(final+"\\"+SET)  #selecting the videos in the folders
 
     # =============================================================================
     # Check which video to show(which session we are)
     # =============================================================================
-    if 'webcam_0.mp4' not in listdir(final+'\\data') and 'webcam_1.mp4' not in listdir(final+'\\data') and 'webcam_2.mp4' not in listdir(final+'\\data'):
+    if "webcam_0.mp4" not in listdir(final+"\\data") and "webcam_1.mp4" not in listdir(final+"\\data") and "webcam_2.mp4" not in listdir(final+"\\data"):
         showing=video0
-        num='0'
-    elif 'webcam_0.mp4' in listdir(final+'\\data') and 'webcam_1.mp4' not in listdir(final+'\\data') and 'webcam_2.mp4' not in listdir(final+'\\data'):
+        num="0"
+    elif "webcam_0.mp4" in listdir(final+"\\data") and "webcam_1.mp4" not in listdir(final+"\\data") and "webcam_2.mp4" not in listdir(final+"\\data"):
         showing=video1
-        num='1'
-    elif 'webcam_0.mp4' in listdir(final+'\\data') and 'webcam_1.mp4' in listdir(final+'\\data') and 'webcam_2.mp4' not in listdir(final+'\\data'):
+        num="1"
+    elif "webcam_0.mp4" in listdir(final+"\\data") and "webcam_1.mp4" in listdir(final+"\\data") and "webcam_2.mp4" not in listdir(final+"\\data"):
         showing=video2
-        num='2'
+        num="2"
     else:      
-        thanks='\n\nHet lijkt erop dat u alle sessies al heeft afgerond\n\n\
-            Bedankt voor uw tijd!\n'
+        thanks="\n\nHet lijkt erop dat u alle sessies al heeft afgerond\n\n\
+            Bedankt voor uw tijd!\n"
         messages(thanks,2,6)
         sys.exit()
     
-    log.append('Identified session'+' : '+str(time.time()))
-    print('Identified session')
+    log.append("Identified session"+" : "+str(time.time()))
+    print("Identified session")
 
     # =============================================================================
     # Multiprocessing setting
     # =============================================================================
-    fps_manager = manager.Value('i', 0)
-    stopper_manager = manager.Value('i',0)
+    fps_manager = manager.Value("i", 0)
+    stopper_manager = manager.Value("i",0)
     
     process1 = multiprocessing.Process(target=check_webcam, args=(fps_manager,final,num)) 
     process2 = multiprocessing.Process(target=webcam, args=(stopper_manager,fps_manager,final,num)) 
@@ -308,23 +308,27 @@ if __name__ == '__main__':
     # =============================================================================
     process1.start()
     time.sleep(1)
-    instructions= "\nBedankt voor uw deelname aan dit onderzoek.\n Dit onderzoek is verdeeld in twee gedeelten: het trainingsgedeelte en het testgedeelte.\n\n\
-    Het oefengedeelte zal in de drie dagen voor het testgedeelte plaatsvinden.\n\
-    Tijdens dit gedeelte vragen we u om samen met uw kind drie video's (Ã©Ã©n voor iedere dag) te kijken met dit programma.\n\
-    In iedere sessie zal er een video verschijnen op uw scherm en tegelijkertijd zal het gedrag van uw kind worden opgenomen via de webcam.\n\n\
-    Het programma installeert niets op uw device en het opgenomen materiaal zal alleen worden opgeslagen op de versleutelde USB-stick,\n\
+    instructions1= "\nBedankt voor uw deelname aan dit onderzoek.\n Dit onderzoek is verdeeld in twee gedeelten: het trainingsgedeelte en het testgedeelte.\n\n\
+    Het trainingsgedeelte zal in de drie dagen voor het testgedeelte plaatsvinden.\n \
+    Tijdens dit gedeelte vragen we u om samen met uw kind drie video's (één voor iedere dag) te kijken met dit programma.\n\n\
+    Druk de SPATIEBALK om door te gaan.\n"
+    messages(instructions1,1,0)
+    
+    instructions2="\nIn iedere sessie zullen u en uw kind een video kijken. Tegelijkertijd zal het gedrag van uw kind worden opgenomen via de webcam.\n\n\
+    Belangrijk: Het programma installeert niets op uw computer en het opgenomen materiaal zal alleen worden opgeslagen op deze veilige USB-stick,   \n\
     u heeft de volledige controle hierover.\n\n\
-    Vergeet astublieft niet de USB-stick mee te nemen naar het testgedeelte.\n\
-    De video's zullen worden geanalyseerd om te kijken of uw kind genoeg aandacht toonde voor de stimuli.\n\n \
-    Als u er klaar voor bent, kunt de SPATIEBALK indrukken om door te gaan naar de sessie.\n"
-    messages(instructions,1,0)
+    Vergeet alstublieft niet de USB-stick mee te nemen naar het testgedeelte.\n\
+    De video's zullen ons helpen om te kijken hoe uw kind op de filmpjes reageert.\n\n \
+    Als u er klaar voor bent, kunt de SPATIEBALK indrukken om door te gaan naar de sessie.\n\
+    Het programma zal dan de kwaliteit van uw webcam automatisch meten.\n"
+    messages(instructions2,1,0)
 
     # =============================================================================
     # Waiting for the framerate 
     # =============================================================================
-    waiting = '\n\Het programma is de kwaliteit van uw webcam aan het meten.\n\n\
-	Een moment geduld astublieft.'
-    messages(waiting,2,5)
+    waiting = "\n\Het programma is de kwaliteit van uw webcam aan het meten.\n\n\
+	Een moment geduld alstublieft."
+    messages(waiting,2,6)
 
     process1.join()
     
@@ -332,43 +336,43 @@ if __name__ == '__main__':
     # Problem webcam
     # =============================================================================
     if fps_manager.value==1:
-        problem='\n\nHet programma kan geen webcam detecteren.\n\
-            Zorg er alstublieft voor dat uw device toegang heeft tot een webcam en start het programma opnieuw op.'
-        messages(problem,2,4)
+        problem_webcam="\n\Het programma kan geen webcam detecteren.\n\
+        Zorg er alstublieft voor dat uw computer toegang heeft tot een webcam en start het programma opnieuw op."
+        messages(problem_webcam,2,5)
         sys.exit()
     
-    log.append('Webcam identification'+' : '+str(time.time())) 
-    log.append('Framerate of'+' : '+str(fps_manager.value)+' fps')
+    log.append("Webcam identification"+" : "+str(time.time())) 
+    log.append("Framerate of"+" : "+str(fps_manager.value)+" fps")
     
    # =============================================================================
     # Ready window
     # =============================================================================
-    position='\nAls u de SPATIEBALK indrukt, zal er een video feedback van uw webcam verschijnen.\n\
+    position="\nAls u de SPATIEBALK indrukt, kunt u het beeld van de webcam zien.\n\
     Probeer uw kind in het midden van de webcam te plaatsen zodat het gezichtje duidelijk in beeld is.\n\
-    Als u tevreden bent met de positie, druk dan de SPATIEBALK in om door te gaan.'
+    Als u tevreden bent met de positie, druk dan de SPATIEBALK in om door te gaan."
     messages(position,0,0)
     Webcam_feedback()
-    print('Image checked on webcam')
-    log.append('Image checked on webcam'+' : '+str(time.time())) 
+    print("Image checked on webcam")
+    log.append("Image checked on webcam"+" : "+str(time.time())) 
 
     # =============================================================================
     # Last Chance
     # =============================================================================
-    readyness='\nAls u de spatiebalk indrukt zal de eerste video beginnen.\n\
-    De sessie zal ongeveer twaalf minuten duren.\n\n\
-    Als u er niet klaar voor bent of als u de sessie later wilt beginnen\n  drukt u nu op ESC en het programma zal dan sluiten.\n\n\
-    Als u door wilt gaan, druk dan op de SPATIEBALK. We vragen u om uw kind de sessie helemaal af te laten kijken.\n\n\
-    Als u om welke reden dan ook de sessie wil onderbreken, druk dan op de ESC toets.'
+    readyness="\nAls u de SPATIEBALK indrukt zal de eerste video beginnen.\n\
+    De sessie zal ongeveer 12 minuten duren.\n\n\
+    Als u er niet klaar voor bent op dit moment of als u de sessie later wilt beginnen\n  drukt u nu op ESC en het programma zal sluiten.\n\n\
+    Als u door wilt gaan, druk dan op de SPATIEBALK. We vragen u om uw kind zo goed mogelijk de sessie helemaal af te laten kijken.\n\n\
+    Als u om welke reden dan ook de sessie wilt onderbreken, druk dan op de ESC toets."
     messages(readyness,1,0)
-    print('Session accepted')
-    log.append('Session accepted'+' : '+str(time.time()))
+    print("Session accepted")
+    log.append("Session accepted"+" : "+str(time.time()))
 
     # =============================================================================
     #  showing video
     # =============================================================================
     process2.start()
-    print('Webcam activated')
-    log.append('Webcam activated'+' : '+str(time.time()))
+    print("Webcam activated")
+    log.append("Webcam activated"+" : "+str(time.time()))
     time.sleep(1)
         
     pos1,pos2,dim1,dim2=screen_w/2-video_w*rapport/2, screen_h/2-video_h*rapport/2 ,video_w*rapport,video_h*rapport
@@ -393,7 +397,7 @@ if __name__ == '__main__':
         window.close()
         source.delete()
         pyglet.app.exit()
-        print('close')
+        print("close")
         
     @player.event
     def on_eos():
@@ -401,49 +405,49 @@ if __name__ == '__main__':
         window.close()
         source.delete()
         pyglet.app.exit()
-        print('eos')
+        print("eos")
         
     pyglet.app.run()
     stop=time.time() #timestemp of stop
     stopper_manager.value=1
     
-    '''closing video'''
+    """closing video"""
     window.close(), player.delete(), source.delete(),pyglet.app.exit()
-    log.append('Video start : '+str(start))
-    log.append('Video stop : '+str(stop))
+    log.append("Video start : "+str(start))
+    log.append("Video stop : "+str(stop))
     minutes,seconds=divmod(stop-start,60)
-    log.append('Duration : '+str(int(minutes))+':'+str(seconds))
+    log.append("Duration : "+str(int(minutes))+":"+str(seconds))
     process2.join() #waiting for the closing of process2
     
     # =============================================================================
     # Rating Infant  
     # =============================================================================
-    rating_text='\nBeoordeel alstublieft of uw kind oplette tijdens de video.\n\n\
+    rating_text="\nBeoordeel alstublieft of uw kind oplette tijdens de video.\n\n\
         Druk op een toets met een cijfer tussen 1 en 9.\n\n\
             1 betekent dat uw kind niet oplette tijdens de video\n\n\
-                9 betekent dat uw kind oplette gedurende de gehele video'
+                9 betekent dat uw kind oplette gedurende de gehele video"
     messages(rating_text,3,0)
-    log.append('Infant attention rated as : '+rating)
+    log.append("Infant attention rated as : "+rating)
     print(rating)
     
     # =============================================================================
     # saving logs
     # =============================================================================
-    logg= open(final+'\\data\\log_'+num+'.txt','w+')
+    logg= open(final+"\\data\\log_"+num+".txt","w+")
     for err in log:
-        logg.write(err+'\n') 
+        logg.write(err+"\n") 
     logg.close() 
     time.sleep(1)
     
     # =============================================================================
     # BYBY
     # =============================================================================
-    if num =='0':
-        byby='\n\nDe eerste sessie is nu afgelopen.\n    Vergeet astublieft niet om morgen de tweede video te kijken.    \n\n    Bedankt voor uw deelname!    \n'
-    elif num=='1':
-        byby='\n\nDe tweede sessie is nu afgelopen.\n    Vergeet astublieft niet om morgen de derde video te kijken.    \n\n    Bedankt voor uw deelname!    \n'
-    elif num=='2':
-        byby='\n\nHet trainingsgedeelte is nu afgelopen.\n    Vergeet astublieft niet uw afspraak voor de EEG scan.    \n\n    Bedankt voor uw deelname!    \n'
+    if num =="0":
+        byby="\n\nDe eerste sessie is nu afgelopen.\n    Vergeet alstublieft niet om morgen de tweede video te kijken.    \n\n    Bedankt voor uw deelname!    \n"
+    elif num=="1":
+        byby="\n\nDe tweede sessie is nu afgelopen.\n    Vergeet alstublieft niet om morgen de derde video te kijken.    \n\n    Bedankt voor uw deelname!    \n"
+    elif num=="2":
+        byby="\n\nHet trainingsgedeelte is nu helemaal afgelopen.\n    Vergeet alstublieft niet uw afspraak voor de EEG scan.    \n\n    Bedankt voor uw deelname!    \n"
     
     messages(byby,2,4)
     sys.exit()
