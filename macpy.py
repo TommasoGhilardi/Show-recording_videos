@@ -139,7 +139,7 @@ def Webcam_feedback():
 def check_webcam(manager_of_frames,path,numm):
     manager_of_frames.value=0
     fps_testing=0
-    check = cv2.VideoCapture(0 + cv2.CAP_DSHOW)
+    check = cv2.VideoCapture(0)
     
     if not check.isOpened():
         manager_of_frames.value=1
@@ -225,7 +225,7 @@ def findinpath(pathh):
         print("Videos identified")
         log.append("Video identified"+" : "+str(time.time()))
     else:
-        problem_media="Het programma kan de media bestanden niet vinden.\n\n\
+        problem_media="\n\nHet programma kan de media bestanden niet vinden.\n\n\
         Als u een bestand hebt aangepast of verwijderd van de USB-stick, probeer dan alstublieft de bestanden te herstellen in de originele staat op de USB-stick.\n\
         Als dit niet mogelijk is, contacteer dan alstublieft de onderzoeker door de voorziene instructies te volgen.\n"
         messages(problem_media,2,8)
@@ -310,23 +310,22 @@ if __name__ == "__main__":
     time.sleep(1)
     instructions1= "\nBedankt voor uw deelname aan dit onderzoek.\n Dit onderzoek is verdeeld in twee gedeelten: het trainingsgedeelte en het testgedeelte.\n\n\
     Het trainingsgedeelte zal in de drie dagen voor het testgedeelte plaatsvinden.\n \
-    Tijdens dit gedeelte vragen we u om samen met uw kind drie video's (één voor iedere dag) te kijken met dit programma.\n\n\
+    Tijdens dit gedeelte vragen we u om samen met uw kind drie video's (Ã©Ã©n voor iedere dag) te kijken met dit programma.\n\n\
     Druk de SPATIEBALK om door te gaan.\n"
     messages(instructions1,1,0)
     
     instructions2="\nIn iedere sessie zullen u en uw kind een video kijken. Tegelijkertijd zal het gedrag van uw kind worden opgenomen via de webcam.\n\n\
-    Belangrijk: Het programma installeert niets op uw computer en het opgenomen materiaal zal alleen worden opgeslagen op deze veilige USB-stick,   \n\
+    Belangrijk: Het programma installeert niets op uw computer en het opgenomen materiaal zal alleen worden opgeslagen op deze veilige USB-stick,\
     u heeft de volledige controle hierover.\n\n\
     Vergeet alstublieft niet de USB-stick mee te nemen naar het testgedeelte.\n\
     De video's zullen ons helpen om te kijken hoe uw kind op de filmpjes reageert.\n\n \
-    Als u er klaar voor bent, kunt de SPATIEBALK indrukken om door te gaan naar de sessie.\n\
-    Het programma zal dan de kwaliteit van uw webcam automatisch meten.\n"
+    Als u er klaar voor bent, kunt de SPATIEBALK indrukken om door te gaan naar de sessie.\n"
     messages(instructions2,1,0)
     
     # =============================================================================
     # Waiting for the framerate 
     # =============================================================================
-    waiting = "\n\Het programma is de kwaliteit van uw webcam aan het meten.\n\n\
+    waiting = "\n\nHet programma is de kwaliteit van uw webcam aan het meten.\n\n\
 	Een moment geduld alstublieft."
     messages(waiting,2,6)
 
@@ -336,7 +335,7 @@ if __name__ == "__main__":
     # Problem webcam
     # =============================================================================
     if fps_manager.value==1:
-        problem_webcam="\n\Het programma kan geen webcam detecteren.\n\
+        problem_webcam="\n\nHet programma kan geen webcam detecteren.\n\
         Zorg er alstublieft voor dat uw computer toegang heeft tot een webcam en start het programma opnieuw op."
         messages(problem_webcam,2,5)
         sys.exit()
@@ -347,7 +346,7 @@ if __name__ == "__main__":
     # =============================================================================
     # Ready window
     # =============================================================================
-    position="\nAls u de SPATIEBALK indrukt, kunt u het beeld van de webcam zien.\n\
+    position="\n\nAls u de SPATIEBALK indrukt, kunt u het beeld van de webcam zien.\n\
     Probeer uw kind in het midden van de webcam te plaatsen zodat het gezichtje duidelijk in beeld is.\n\
     Als u tevreden bent met de positie, druk dan de SPATIEBALK in om door te gaan."
     messages(position,0,0)
@@ -358,7 +357,7 @@ if __name__ == "__main__":
     # =============================================================================
     # Last Chance
     # =============================================================================
-    readyness="\nAls u de SPATIEBALK indrukt zal de eerste video beginnen.\n\
+    readyness="\n\nAls u de SPATIEBALK indrukt zal de eerste video beginnen.\n\
     De sessie zal ongeveer 12 minuten duren.\n\n\
     Als u er niet klaar voor bent op dit moment of als u de sessie later wilt beginnen\n  drukt u nu op ESC en het programma zal sluiten.\n\n\
     Als u door wilt gaan, druk dan op de SPATIEBALK. We vragen u om uw kind zo goed mogelijk de sessie helemaal af te laten kijken.\n\n\
@@ -424,7 +423,8 @@ if __name__ == "__main__":
     # =============================================================================
     # Rating Infant  
     # =============================================================================
-    rating_text="\nBeoordeel alstublieft of uw kind oplette tijdens de video.\n\n\
+    time.sleep(2)
+    rating_text="\n\nBeoordeel alstublieft of uw kind oplette tijdens de video.\n\n\
         Druk op een toets met een cijfer tussen 1 en 9.\n\n\
             1 betekent dat uw kind niet oplette tijdens de video\n\n\
                 9 betekent dat uw kind oplette gedurende de gehele video"

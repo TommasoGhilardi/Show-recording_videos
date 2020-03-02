@@ -421,6 +421,7 @@ if __name__ == "__main__":
     # =============================================================================
     # Rating Infant  
     # =============================================================================
+    time.sleep(2)
     rating_text="\n\nBeoordeel alstublieft of uw kind oplette tijdens de video.\n\n\
         Druk op een toets met een cijfer tussen 1 en 9.\n\n\
             1 betekent dat uw kind niet oplette tijdens de video\n\n\
