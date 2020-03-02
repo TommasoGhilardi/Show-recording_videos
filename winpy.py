@@ -37,7 +37,7 @@ def messages(disp_text,handler,stopper):
         document.insert_text(0, disp_text, attributes=dict(font_name="Times New Roman", font_size=Size_font, align="center",
                                                               margin_top=Size_font*0.8, margin_bottom=Size_font*0.8, 
                                                               margin_right=Size_font*0.6, margin_left=Size_font*0.6,
-                                                              line_spacing=Size_font*0.8, leading=Size_font*0.5,
+                                                              line_spacing=Size_font*0.9, leading=Size_font*0.5,
                                                               wrap=True, color=(255, 255, 255, 255)))
         disp=pyglet.text.layout.TextLayout(document, width=int(w*0.8), height=int(h*0.75),
                                                multiline=True, wrap_lines="yes", batch=batch)
