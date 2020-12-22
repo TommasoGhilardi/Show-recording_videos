@@ -13,7 +13,7 @@ class WEBCAM():
     
     def __init__(self,activator,fps_in):
         self.fps= int(fps_in.value*0.8)  # reducing of 20% the framereate
-        self.TIMEOUT=1/self.fps          # milliseconds for the timeout
+        self.TIMEOUT=1/self.fps          # convert to milliseconds for the timeout
         self.activator= activator
         
         self.cap = cv2.VideoCapture(0 + cv2.CAP_DSHOW)      # finding the webcam
@@ -21,10 +21,9 @@ class WEBCAM():
         
         self.width= 320       # width of the frame that will be saved
         self.height= int(self.cap.get(cv2.CAP_PROP_FRAME_HEIGHT)*self.width/self.cap.get(cv2.CAP_PROP_FRAME_WIDTH)) # height related to width
-        self.fourcc = cv2.VideoWriter_fourcc(*'mp4v')       # CODEC
-        self.out = cv2.VideoWriter('C:\\Users\\tomma\\Desktop\\Personal\\Webcam\\output.mp4',
+        self.fourcc = cv2.VideoWriter_fourcc(*"mp4v")       # CODEC
+        self.out = cv2.VideoWriter("output.mp4",
                                    self.fourcc, self.fps, (self.width,self.height))      # Saving details
-        # self.out.set(cv2.VIDEOWRITER_PROP_QUALITY,80)       # reducing quality
         
         self.activation=True
         self.capturing = Thread(target=self.capture, args=())   # threading webcam frame reading
@@ -119,7 +118,7 @@ class Webcam_feedback(pyglet.window.Window):
 def fps_checker(manager_of_frames):
     """Function to check the framerate of teh webcam"""
     
-    manager_of_frames.value=0   #mase sure we start from 0
+    manager_of_frames.value=0   # make sure we start from 0
     fps_testing=0
     check = cv2.VideoCapture(0 + cv2.CAP_DSHOW)     # finding the webcam
     
